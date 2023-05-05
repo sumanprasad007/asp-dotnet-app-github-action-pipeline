@@ -30,7 +30,6 @@ jobs:
       # Publish_Directory: ${{ github.workspace }}/WebApplication2-github-cicd-pipeline/publish
       # Publish_Directory: ${{ github.repository }}/publish
       Publish_Directory: "${{ github.workspace }}/ASP.NET/ASP.NET.csproj"
-      
     steps:
     - name: Checkout 🔗
       uses: actions/checkout@v3
@@ -79,8 +78,8 @@ jobs:
       # run: msbuild $env:Solution_Name /t:Publish /p:Configuration=$env:Configuration /p:OutputPath=bin\publish
       # run: msbuild $env:Solution_Name /t:Publish  /p:OutputPath=WebApplication2-github-cicd-pipeline/WebApplication2/bin/
       run:  |
-        msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory /p:PublishDir:$env.Publish_Directory
-
+        msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
+        
     - name: Publish artifacts
       uses: actions/upload-artifact@v2
       with:
