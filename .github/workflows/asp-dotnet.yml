@@ -34,7 +34,7 @@ jobs:
         dotnet publish "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" -c Release -o ASP.NET
 
     - name: Upload a build artifacts 
-      uses: action/upload-artifacts@v2.2.0
+      uses: actions/upload-artifact@v3.1.2
       with:
         name: ASP.NET-build-artifacts
         path: ASP.NET/**
