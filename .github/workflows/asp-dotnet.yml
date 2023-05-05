@@ -14,13 +14,30 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
+
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
+    
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore "${{ github.workspace }}/ASP.NET/ASP.NET.csproj"
+
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --configuration Release --no-restore
+
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
+
+    - name: Publish
+      run: |
+        dotnet publish "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" -c Release -o ASP.NET
+
+    - name: Upload a build artifacts 
+      uses: action/upload-artifacts@v2.2.0
+      with:
+        name: ASP.NET-build-artifacts
+        path: ASP.NET/**
+        if-no-files-found: error
+        # retention-days: 90 
+    
