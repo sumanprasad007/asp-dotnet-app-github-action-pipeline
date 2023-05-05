@@ -29,6 +29,7 @@ jobs:
       # Publish_Directory: ${{ github.workspace }}/publish
       # Publish_Directory: ${{ github.workspace }}/WebApplication2-github-cicd-pipeline/publish
       # Publish_Directory: ${{ github.repository }}/publish
+      # Publish_Directory: "${{ github.workspace }}/"
       Publish_Directory: "${{ github.workspace }}\Publish"
     steps:
     - name: Checkout 🔗
@@ -78,7 +79,8 @@ jobs:
       # run: msbuild $env:Solution_Name /t:Publish /p:Configuration=$env:Configuration /p:OutputPath=bin\publish
       # run: msbuild $env:Solution_Name /t:Publish  /p:OutputPath=WebApplication2-github-cicd-pipeline/WebApplication2/bin/
       run:  |
-        msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
+       mkdir Publish 
+       msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
 
     - name: Publish artifacts
       uses: actions/upload-artifact@v2
