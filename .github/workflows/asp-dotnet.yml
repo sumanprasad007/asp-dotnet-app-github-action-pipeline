@@ -74,15 +74,17 @@ jobs:
     # - name: Test
     #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
 
-    - name: Publish
-      run: |
-        dotnet publish "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" -c Release -o ASP.NET
+    - name: Publish the application
+      # run: msbuild $env:Solution_Name /t:Publish /p:Configuration=$env:Configuration /p:OutputPath=bin\publish
+      # run: msbuild $env:Solution_Name /t:Publish  /p:OutputPath=WebApplication2-github-cicd-pipeline/WebApplication2/bin/
+      run:  |
+        # working-directory: frontend
+        msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory /p:PublishDir:$env.Publish_Directory
 
-    - name: Upload a build artifacts 
-      uses: actions/upload-artifact@v3.1.2
+    - name: Publish artifacts
+      uses: actions/upload-artifact@v2
       with:
-        name: ASP.NET-build-artifacts
-        path: ASP.NET/**
-        if-no-files-found: error
-        # retention-days: 90 
+          name: Published Code
+          path: ${{ env.Publish_Directory }}
+          
     
