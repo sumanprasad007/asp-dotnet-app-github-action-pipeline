@@ -1,5 +1,5 @@
 
-name: .NET
+name: GitHub-Pipeline 👩‍💻
 
 on:
   push:
@@ -7,27 +7,72 @@ on:
   pull_request:
     branches: [ "main" ]
 
+# defaults:
+#   run:
+#     working-directory: frontend
+    
 jobs:
+
   build:
 
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        configuration: [Release]
 
+    runs-on: windows-latest  
+
+    env:
+      Solution_Name: ASP.NET.sln                          # Replace with your solution name, i.e. MyWpfApp.sln.
+#       Test_Project_Path: your-test-project-path                 # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
+      Wap_Project_Directory: ASP.NET    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
+      Wap_Project_Path: ASP.NET/ASP.NET.csproj"                  # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
+      # Publish_Directory: ${{ github.workspace }}/publish
+      # Publish_Directory: ${{ github.workspace }}/WebApplication2-github-cicd-pipeline/publish
+      # Publish_Directory: ${{ github.repository }}/publish
+      Publish_Directory: "${{ github.workspace }}/ASP.NET/ASP.NET.csproj"
     steps:
-    - uses: actions/checkout@v3
+    - name: Checkout 🔗
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
 
-    - name: Setup .NET
+    # Install the .NET Core workload
+    - name: Install .NET Framework ☸
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: 6.0.x
-    
-    - name: Restore dependencies
-      run: dotnet restore "${{ github.workspace }}/ASP.NET/ASP.NET.csproj"
 
-    - name: Build
-      run: dotnet build "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --configuration Release --no-restore
+    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
+    - name: Setup MSBuild.exe 🏗
+      uses: microsoft/setup-msbuild@v1.0.2
 
-    - name: Test
-      run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
+    # Execute all unit tests in the solution
+#     - name: Execute unit tests
+#       run: dotnet test
+
+# ___________________________________________________________________________________________________________
+    - name: Setup NuGet.exe for use with actions 
+      # uses: NuGet/setup-nuget@296fd3ccf8528660c91106efefe2364482f86d6f
+      uses: NuGet/setup-nuget@v1.2.0
+#        with:
+        # NuGet version to install. Can be `latest`, `preview`, a concrete version like `5.3.1`, or a semver range specifier like `5.x`.
+#       nuget-version: # optional, default is latest
+        # NuGet API Key to configure.
+        # nuget-api-key: # optional
+        # Source to scope the NuGet API Key to.
+        # nuget-api-key-source: # optional
+
+    # Restore the application to populate the obj folder with RuntimeIdentifiers
+    - name: Restore NuGet Packages 📚
+      run: nuget restore ASP.NET.sln
+
+    - name: Build the application 📢
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    # - name: Test
+    #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
 
     - name: Publish
       run: |
