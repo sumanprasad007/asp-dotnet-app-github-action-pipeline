@@ -95,4 +95,4 @@ jobs:
       uses: actions/download-artifact@v2
       with:
           name: Published Code
-          path: ${{ github.workspace }}/published-code
+          path: ${{ github.workspace }}/
