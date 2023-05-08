@@ -81,7 +81,10 @@ jobs:
       with:
           name: Published Code
           path: ${{ env.Publish_Directory }}
-          
+   
+    - name: Generate deployment package
+      run: zip -r deploy.zip . -x '*.git*'
+
 
     - name: Deploy to AWS Elastic Beanstalk 🚀
       uses: einaregilsson/beanstalk-deploy@v16
@@ -92,4 +95,8 @@ jobs:
           environment_name: "ASPNET-env"
           version_label: "v${{ github.run_number }}"
           region: "us-east-1"
-          deployment_package: "/"     
+          deployment_package: "deploy.zip"     
+
+
+
+
