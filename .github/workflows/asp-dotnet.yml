@@ -83,7 +83,12 @@ jobs:
           path: ${{ env.Publish_Directory }}
    
     - name: Generate deployment package
-      run: zip -r deploy.zip . -x '*.git*'
+      run: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+      
+        choco install zip -y
+        
+        zip -r deploy.zip . -x '*.git*'
 
 
     - name: Deploy to AWS Elastic Beanstalk 🚀
