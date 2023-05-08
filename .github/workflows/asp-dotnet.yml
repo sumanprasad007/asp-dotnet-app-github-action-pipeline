@@ -71,7 +71,7 @@ jobs:
 
     - name: Build the application 📢
       # run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-      run: msbuild $env:Solution_Name /p:Configuration=Release /t:Publish "Wap_Project_Path"
+      run: msbuild /p:Configuration=Release /t:Publish "Wap_Project_Path"
       env:
         Configuration: ${{ matrix.configuration }}
 
@@ -82,13 +82,17 @@ jobs:
       # run: msbuild $env:Solution_Name /t:Publish /p:Configuration=$env:Configuration /p:OutputPath=bin\publish
       # run: msbuild $env:Solution_Name /t:Publish  /p:OutputPath=WebApplication2-github-cicd-pipeline/WebApplication2/bin/
       run:  |
-       mkdir \Publish 
        msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
 
-    - name: Publish artifacts
-      uses: actions/upload-artifact@v2
+    # - name: Publish artifacts
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #       name: Published Code
+    #       path: ${{ env.Publish_Directory }}
+          
+
+    - name: Download published code
+      uses: actions/download-artifact@v2
       with:
           name: Published Code
-          path: ${{ env.Publish_Directory }}
-          
-    
+          path: ${{ github.workspace }}/published-code
