@@ -102,5 +102,6 @@ jobs:
           region: "us-east-1"
           deployment_package: "deploy.zip"     
 
-
+    - name: Deployment done ✅
+      run: echo "The deployment was successful!" 
 
