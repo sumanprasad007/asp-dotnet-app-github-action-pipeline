@@ -70,8 +70,8 @@ jobs:
       run: nuget restore ASP.NET.sln
 
     - name: Build the application 📢
-      # run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-      run: msbuild /p:Configuration=Release /t:Publish "Wap_Project_Path"
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      # run: msbuild /p:Configuration=Release /t:Publish "Wap_Project_Path"
       env:
         Configuration: ${{ matrix.configuration }}
 
