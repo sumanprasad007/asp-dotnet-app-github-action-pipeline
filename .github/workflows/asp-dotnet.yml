@@ -30,7 +30,7 @@ jobs:
       # Publish_Directory: ${{ github.workspace }}/WebApplication2-github-cicd-pipeline/publish
       # Publish_Directory: ${{ github.repository }}/publish
       # Publish_Directory: "${{ github.workspace }}\"
-      Publish_Directory: "${{ github.workspace }}/ASP.NET"
+      Publish_Directory: "${{ github.workspace }}/"
       
     steps:
     - name: Checkout 🔗
