@@ -95,7 +95,7 @@ jobs:
       uses: actions/download-artifact@v2
       with:
           name: Published Code
-          path: ${{ env.Publish_Directory }}/
+          path: ${{ env.Publish_Directory }}
 
     # - name: Deploy to AWS Elastic Beanstalk
     #   uses: einaregilsson/beanstalk-deploy@v16
