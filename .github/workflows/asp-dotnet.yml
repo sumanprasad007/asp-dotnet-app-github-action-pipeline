@@ -70,38 +70,62 @@ jobs:
     # - name: Test
     #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
 
-    - name: Publish the application
-      # run: msbuild $env:Solution_Name /t:Publish /p:Configuration=$env:Configuration /p:OutputPath=bin\publish
-      # run: msbuild $env:Solution_Name /t:Publish  /p:OutputPath=WebApplication2-github-cicd-pipeline/WebApplication2/bin/
-      run:  |
-       msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
+    # - name: Publish the application
+    #   # run: msbuild $env:Solution_Name /t:Publish /p:Configuration=$env:Configuration /p:OutputPath=bin\publish
+    #   # run: msbuild $env:Solution_Name /t:Publish  /p:OutputPath=WebApplication2-github-cicd-pipeline/WebApplication2/bin/
+    #   run:  |
+    #    msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
 
+    - name: Build and Publish
+      run: |
+        msbuild /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=Publish/ Wap_Project_Path
+         
     - name: Publish artifacts 📢
       uses: actions/upload-artifact@v2
       with:
           name: Published Code
           path: ${{ env.Publish_Directory }}
    
-    - name: Generate deployment package
-      run: |
-        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    # - name: Generate deployment package
+    #   run: |
+    #     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
       
-        choco install zip -y
+    #     choco install zip -y
 
-        zip -r deploy.zip . -x '*.git*'
+    #     zip -r deploy.zip . -x '*.git*'
 
 
-    - name: Deploy to AWS Elastic Beanstalk 🚀
-      uses: einaregilsson/beanstalk-deploy@v16
-      with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: "ASP.NET Application"
-          environment_name: "ASPNETApplication-env"
-          version_label: "v${{ github.run_number }}"
-          region: "us-east-1"
-          deployment_package: "deploy.zip"     
+    # - name: Deploy to AWS Elastic Beanstalk 🚀
+    #   uses: einaregilsson/beanstalk-deploy@v16
+    #   with:
+    #       aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #       aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #       application_name: "ASP.NET Application"
+    #       environment_name: "ASPNETApplication-env"
+    #       version_label: "v${{ github.run_number }}"
+    #       region: "us-east-1"
+    #       deployment_package: "deploy.zip"     
 
-    - name: Deployment done ✅
-      run: echo "The deployment was successful!" 
+    # - name: Deployment done ✅
+    #   run: echo "The deployment was successful!" 
 
+    # - name: Deploy to AWS EC2 🚀
+    #   uses: appleboy/ssh-action@master
+    #   with:
+    #     host: ${{ secrets.HOST }}
+    #     username: ${{ secrets.USERNAME }}
+    #     key: ${{ secrets.KEY }}
+    #     port: ${{ secrets.PORT }}
+    #     script: |
+    #       cd /home/ec2-user
+    #       ls
+    #       pwd
+    #       # unzip deploy.zip
+    #       # cd publish
+    #       # ls
+    #       # cd ASP.NET
+    #       # ls
+    #       # sudo dotnet ASP.NET.dll
+    #       # cd ..
+    #       # cd ..
+    #       # cd ..
