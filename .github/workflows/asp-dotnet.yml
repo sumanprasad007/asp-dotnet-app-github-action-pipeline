@@ -78,7 +78,7 @@ jobs:
 
     - name: Publish 📢
       run: |
-        msbuild /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=/ Wap_Project_Path
+        msbuild /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=/ /Wap_Project_Path
          
     - name: Publish artifacts ☁
       uses: actions/upload-artifact@v2
