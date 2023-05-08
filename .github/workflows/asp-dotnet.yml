@@ -46,7 +46,8 @@ jobs:
 
     # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe 🏗
-      uses: microsoft/setup-msbuild@v1.0.2
+      # uses: microsoft/setup-msbuild@v1.0.2
+      uses: microsoft/setup-msbuild@v1.0.3
 
     # Execute all unit tests in the solution
 #     - name: Execute unit tests
@@ -69,7 +70,8 @@ jobs:
       run: nuget restore ASP.NET.sln
 
     - name: Build the application 📢
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      # run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      run: msbuild $env:Solution_Name /p:Configuration=Release /t:Publish "Wap_Project_Path"
       env:
         Configuration: ${{ matrix.configuration }}
 
