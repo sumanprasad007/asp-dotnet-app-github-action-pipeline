@@ -22,10 +22,10 @@ jobs:
     runs-on: windows-latest  
 
     env:
-      Solution_Name: ASP.NET.sln                          # Replace with your solution name, i.e. MyWpfApp.sln.
-#       Test_Project_Path: your-test-project-path                 # Replace with the path to your test project, i.e. MyWpfApp.Tests\MyWpfApp.Tests.csproj.
-      Wap_Project_Directory: ASP.NET    # Replace with the Wap project directory relative to the solution, i.e. MyWpfApp.Package.
-      Wap_Project_Path: ASP.NET/ASP.NET.csproj"                  # Replace with the path to your Wap project, i.e. MyWpf.App.Package\MyWpfApp.Package.wapproj.
+      Solution_Name: ASP.NET.sln                          
+#       Test_Project_Path: your-test-project-path                 
+      Wap_Project_Directory: ASP.NET    
+      Wap_Project_Path: ASP.NET/ASP.NET.csproj"                 
       # Publish_Directory: ${{ github.workspace }}/publish
       # Publish_Directory: ${{ github.workspace }}/WebApplication2-github-cicd-pipeline/publish
       # Publish_Directory: ${{ github.repository }}/publish
@@ -44,7 +44,6 @@ jobs:
       with:
         dotnet-version: 6.0.x
 
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
     - name: Setup MSBuild.exe 🏗
       # uses: microsoft/setup-msbuild@v1.0.2
       uses: microsoft/setup-msbuild@v1.0.3
@@ -55,7 +54,6 @@ jobs:
 
 # ___________________________________________________________________________________________________________
     - name: Setup NuGet.exe for use with actions 
-      # uses: NuGet/setup-nuget@296fd3ccf8528660c91106efefe2364482f86d6f
       uses: NuGet/setup-nuget@v1.2.0
 
     - name: Restore NuGet Packages 📚
@@ -80,19 +78,19 @@ jobs:
       run: |
         msbuild /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=\ ASP.NET/ASP.NET.csproj
          
-    - name: Publish artifacts ☁
-      uses: actions/upload-artifact@v2
-      with:
-          name: Published Code
-          path: ${{ env.Publish_Directory }}
+    # - name: Publish artifacts ☁
+    #   uses: actions/upload-artifact@v2
+    #   with:
+    #       name: Published Code
+    #       path: ${{ env.Publish_Directory }}
    
-    # - name: Generate deployment package
-    #   run: |
-    #     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    - name: Generate deployment package
+      run: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
       
-    #     choco install zip -y
+        choco install zip -y
 
-    #     zip -r deploy.zip . -x '*.git*'
+        zip -r deploy.zip . -x '*.git*'
 
 
     # - name: Deploy to AWS Elastic Beanstalk 🚀
@@ -108,6 +106,10 @@ jobs:
 
     # - name: Deployment done ✅
     #   run: echo "The deployment was successful!" 
+
+
+
+
 
     # - name: Deploy to AWS EC2 🚀
     #   uses: appleboy/ssh-action@master
