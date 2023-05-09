@@ -33,6 +33,10 @@ jobs:
       # Publish_Directory: "${{ github.workspace }}\Publish"
       # Publish_Directory: "${{ github.workspace }}/"
       Publish_Directory: "$(System.DefaultWorkingDirectory)"
+# ___________________________________________________________________________________________________________
+      PublishPath: "$(System.DefaultWorkingDirectory)"
+
+# ___________________________________________________________________________________________________________
       
     steps:
     - name: Checkout 🔗
@@ -84,9 +88,12 @@ jobs:
     #     msbuild $env:Solution_Name /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=\
 # ___________________________________________________________________________________________________________
     - name: Publish
+     
       # run: dotnet publish -c Release -o ./publish-asp.net
       # run: dotnet publish -c Release -o ASP.NET.sln
-      run: msbuild /p:Configuration=Release /t:Publish ASP.NET.sln
+      # run: msbuild /p:Configuration=Release /t:Publish ASP.NET.sln
+      run: msbuild Solution_Name /t:Restore;Build;Publish /p:Configuration=Release /p:PublishDir=$env:PublishPath /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /p:PublishUrl=$env:PublishPath /p:VisualStudioVersion=15.0
+
 
 
 # ___________________________________________________________________________________________________________
@@ -96,7 +103,8 @@ jobs:
       with:
           name: Published Code
           # path: ${{ env.Publish_Directory }}
-          path: publish-asp.net
+          # path: publish-asp.net
+          path: $env:PublishPath
 
 # ___________________________________________________________________________________________________________
    
