@@ -63,6 +63,7 @@ jobs:
 
     - name: Build the application 💥
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      # run: msbuild /p:Configuration=Release
       # run: msbuild /p:Configuration=Release /t:Publish "Wap_Project_Path"
       env:
         Configuration: ${{ matrix.configuration }}
@@ -83,7 +84,8 @@ jobs:
     #     msbuild $env:Solution_Name /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=\
 # ___________________________________________________________________________________________________________
     - name: Publish
-      run: dotnet publish -c Release -o ./publish-asp.net
+      # run: dotnet publish -c Release -o ./publish-asp.net
+      run: dotnet publish -c Release -o ASP.NET.sln
 
 # ___________________________________________________________________________________________________________
 
