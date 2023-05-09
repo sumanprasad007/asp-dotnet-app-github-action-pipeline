@@ -69,21 +69,32 @@ jobs:
 
     # - name: Test
     #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
+# ___________________________________________________________________________________________________________
 
-    - name: Publish the application 📢
-      run:  |
-       msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
+    # - name: Publish the application 📢
+    #   run:  |
+    #    msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
+
+# ___________________________________________________________________________________________________________
 
     # - name: Publish 📢
     #   run: |
     #     # msbuild $env:Solution_Name /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=\ ASP.NET/ASP.NET.csproj
     #     msbuild $env:Solution_Name /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=\
+# ___________________________________________________________________________________________________________
+    - name: Publish
+      run: dotnet publish -c Release -o ./publish-asp.net
+
+# ___________________________________________________________________________________________________________
 
     - name: Publish artifacts ☁
       uses: actions/upload-artifact@v2
       with:
           name: Published Code
-          path: ${{ env.Publish_Directory }}
+          # path: ${{ env.Publish_Directory }}
+          path: publish-asp.net
+
+# ___________________________________________________________________________________________________________
    
     # - name: Generate deployment package
     #   run: |
@@ -109,6 +120,7 @@ jobs:
     #   run: echo "The deployment was successful!" 
 
 
+# ___________________________________________________________________________________________________________
 
 
 
