@@ -31,7 +31,7 @@ jobs:
       # Publish_Directory: "${{ github.workspace }}/"
       # Publish_Directory: "${{ github.workspace }}\Publish"
       Publish_Directory: "${{ github.workspace }}\"
-      # Publish_Directory: "$(System.DefaultWorkingDirectory)"
+
 # ___________________________________________________________________________________________________________
       # PublishPath: "$(System.DefaultWorkingDirectory)"
 
