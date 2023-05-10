@@ -30,7 +30,7 @@ jobs:
       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin/Release/netcoreapp3.1/publish"
       # Publish_Directory: "${{ github.workspace }}/"
       # Publish_Directory: "${{ github.workspace }}\Publish"
-      Publish_Directory: "${{ github.workspace }}\"
+      Publish_Directory: "${{ github.workspace }}\""
 
 # ___________________________________________________________________________________________________________
       # PublishPath: "$(System.DefaultWorkingDirectory)"
