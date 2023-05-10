@@ -101,9 +101,9 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           name: Published Code
-          # path: ${{ env.Publish_Directory }}
+          path: ${{ env.Publish_Directory }}
           # path: publish-asp.net
-          path: $env:PublishPath
+          # path: $env:PublishPath
 # ___________________________________________________________________________________________________________
    
     # - name: Generate deployment package
