@@ -24,7 +24,7 @@ jobs:
       Solution_Name: ASP.NET.sln                          
 #       Test_Project_Path: your-test-project-path                 
       Wap_Project_Directory: ASP.NET    
-      Wap_Project_Path: ASP.NET/ASP.NET.csproj"                 
+      Wap_Project_Path: "ASP.NET/ASP.NET.csproj"                 
       # Publish_Directory: ${{ github.workspace }}/publish
       # Publish_Directory: ${{ github.workspace }}/WebApplication2-github-cicd-pipeline/publish
       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin/Release/netcoreapp3.1/publish"
