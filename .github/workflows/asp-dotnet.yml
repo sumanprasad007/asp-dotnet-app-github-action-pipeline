@@ -93,8 +93,6 @@ jobs:
     #   # run: msbuild /p:Configuration=Release /t:Publish ASP.NET.sln
     #   run: msbuild Solution_Name /t:Restore;Publish /p:Configuration=Release /p:PublishDir=$env:PublishPath /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /p:PublishUrl=$env:PublishPath /p:VisualStudioVersion=15.0
 
-
-
 # ___________________________________________________________________________________________________________
 
     - name: Publish artifacts ☁
