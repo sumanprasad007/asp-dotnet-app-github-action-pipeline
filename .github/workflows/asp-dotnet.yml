@@ -36,7 +36,7 @@ jobs:
       # Publish_Directory: ${{ github.workspace }}/publish
       # Publish_Directory: ${{ github.workspace }}/WebApplication2-github-cicd-pipeline/publish
       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin/Release/netcoreapp3.1/publish"
-      Publish_Directory: "${{ github.workspace }}/"
+      Publish_Directory: "${{ github.workspace }}/.publish"
       # Publish_Directory: "${{ github.workspace }}\Publish"
       # Publish_Directory: "${{ github.workspace }}\""
 
@@ -102,8 +102,12 @@ jobs:
 
     - name: Publish the application 📢
       run:  |
-       msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory --output ./publish
 
+       msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+       msbuild $env:Solution_Name /t:Publish /p:Configuration=$env:Configuration
+      
+
+      #  msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
 
 # ___________________________________________________________________________________________________________
 
