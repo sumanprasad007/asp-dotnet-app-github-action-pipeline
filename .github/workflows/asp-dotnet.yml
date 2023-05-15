@@ -64,11 +64,11 @@ jobs:
         dotnet-version: $ {{ matrix.dotnet-version }}
 # --------------------------------------------------------------------------------------------------------------
 
-    # Install the .NET Core workload
-    - name: Install .NET Framework ☸
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 7.0.x
+    # # Install the .NET Core workload
+    # - name: Install .NET Framework ☸
+    #   uses: actions/setup-dotnet@v3
+    #   with:
+    #     dotnet-version: 7.0.x
 
     - name: Setup MSBuild.exe 🏗
       # uses: microsoft/setup-msbuild@v1.0.2
