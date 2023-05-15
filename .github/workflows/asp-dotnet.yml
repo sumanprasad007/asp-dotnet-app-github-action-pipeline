@@ -14,15 +14,15 @@ jobs:
 
   build:
 
-    # runs-on: windows-latest  
-    runs-on: $ {{ matrix.os }}
+    runs-on: windows-latest  
+    # runs-on: $ {{ matrix.os }}
 
     strategy:
       matrix:
         configuration: [Release]
         # os: [windows-latest, ubuntu-latest]
-        os: [windows-latest]
-        dotnet-version: [6.0.x]
+        # os: [windows-latest]
+        # dotnet-version: [6.0.x]
 
 
     env:
@@ -51,12 +51,12 @@ jobs:
         fetch-depth: 0
         
 # --------------------------------------------------------------------------------------------------------------
-    - name: Cache dependencies
-      id: cache-dotnet
-      uses: actions/cache@v2
-      with:
-        path: ${{ env.USERPROFILE }}\.nuget\packages
-        key: ${{ runner.os }}-dotnet-${{ hashFiles('**/ASP.NET.sln') }}
+    # - name: Cache dependencies
+    #   id: cache-dotnet
+    #   uses: actions/cache@v2
+    #   with:
+    #     path: ${{ env.USERPROFILE }}\.nuget\packages
+    #     key: ${{ runner.os }}-dotnet-${{ hashFiles('**/ASP.NET.sln') }}
 
     - name: Install .NET SDK ☸
       uses: actions/setup-dotnet@v1
