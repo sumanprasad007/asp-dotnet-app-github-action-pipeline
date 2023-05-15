@@ -102,7 +102,8 @@ jobs:
 
     - name: Publish the application 📢
       run:  |
-       msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
+       msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory --output ./publish
+
 
 # ___________________________________________________________________________________________________________
 
@@ -124,10 +125,11 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           name: Published Code
-          path: ${{ env.Publish_Directory }}
+          # path: ${{ env.Publish_Directory }}
           # path: publish-asp.net
           # path: $env:PublishPath
-
+          path: ./publish
+    
 # ___________________________________________________________________________________________________________
 
     #     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
@@ -137,35 +139,35 @@ jobs:
     #       name: MSIX Package
     #       path: ${{ env.Wap_Project_Directory_Upload }}\${{ env.App_Packages_Directory }}
 
+#  ___________________________________________________________________________________________________________
+    # # Archive the package
+    # - name: Create archive
+    #   run: Compress-Archive -Path "$env:Wap_Project_Directory_Upload\*" -DestinationPath "$env:Wap_Project_Directory_Upload\$env:App_Packages_Archive.zip" -Force
 
-    # Archive the package
-    - name: Create archive
-      run: Compress-Archive -Path "$env:Wap_Project_Directory_Upload\*" -DestinationPath "$env:Wap_Project_Directory_Upload\$env:App_Packages_Archive.zip" -Force
 
+    # # Create the release:  https://github.com/actions/create-release
+    # - name: Create release
+    #   id: create_release
+    #   uses: actions/create-release@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+    #   with:
+    #     tag_name: ${{ github.ref}}.${{matrix.ChannelName}}.${{ matrix.targetplatform }}
+    #     release_name:  ${{ github.ref }}.${{ matrix.ChannelName }}.${{ matrix.targetplatform }}
+    #     draft: false
+    #     prerelease: false
 
-    # Create the release:  https://github.com/actions/create-release
-    - name: Create release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      with:
-        tag_name: ${{ github.ref}}.${{matrix.ChannelName}}.${{ matrix.targetplatform }}
-        release_name:  ${{ github.ref }}.${{ matrix.ChannelName }}.${{ matrix.targetplatform }}
-        draft: false
-        prerelease: false
-
-    # Upload release asset:   https://github.com/actions/upload-release-asset
-    - name: Update release asset
-      id: upload-release-asset
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}  # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-        asset_path: ${{ env.Wap_Project_Directory }}\${{ env.App_Packages_Directory }}\${{ env.App_Packages_Archive }}
-        asset_name: ${{ env.App_Packages_Archive }}
-        asset_content_type: application/zip
+    # # Upload release asset:   https://github.com/actions/upload-release-asset
+    # - name: Update release asset
+    #   id: upload-release-asset
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }}  # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+    #     asset_path: ${{ env.Wap_Project_Directory }}\${{ env.App_Packages_Directory }}\${{ env.App_Packages_Archive }}
+    #     asset_name: ${{ env.App_Packages_Archive }}
+    #     asset_content_type: application/zip
 # ___________________________________________________________________________________________________________
    
     # - name: Generate deployment package
