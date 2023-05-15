@@ -129,8 +129,8 @@ jobs:
           # path: $env:PublishPath
           # path: ./publish
 
-    # - name: Checkout repository
-    #   uses: actions/checkout@v2
+    - name: Checkout repository
+      uses: actions/checkout@v2
         
     - name: Move artifact to repository root
       run: |
