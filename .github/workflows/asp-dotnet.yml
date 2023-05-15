@@ -23,9 +23,9 @@ jobs:
         # os: [windows-latest, ubuntu-latest]
         # os: [windows-latest]
         # dotnet-version: [6.0.x]
-        channel: [Dev]
-        targetPlatform: [x64]
-        ChannelName: [Dev]
+        # channel: [Dev]
+        # targetPlatform: [x64]
+        # ChannelName: [Dev]
 
 
     env:
