@@ -58,10 +58,10 @@ jobs:
     #     path: ${{ env.USERPROFILE }}\.nuget\packages
     #     key: ${{ runner.os }}-dotnet-${{ hashFiles('**/ASP.NET.sln') }}
 
-    - name: Install .NET SDK ☸
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: $ {{ matrix.dotnet-version }}
+    # - name: Install .NET SDK ☸
+    #   uses: actions/setup-dotnet@v1
+    #   with:
+    #     dotnet-version: 7.0.x
 # --------------------------------------------------------------------------------------------------------------
 
     # # Install the .NET Core workload
