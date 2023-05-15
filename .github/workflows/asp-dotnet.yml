@@ -36,7 +36,7 @@ jobs:
       # Publish_Directory: ${{ github.workspace }}/publish
       # Publish_Directory: ${{ github.workspace }}/WebApplication2-github-cicd-pipeline/publish
       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin/Release/netcoreapp3.1/publish"
-      Publish_Directory: "${{ github.workspace }}/.publish"
+      Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
       # Publish_Directory: "${{ github.workspace }}\Publish"
       # Publish_Directory: "${{ github.workspace }}\""
 
@@ -102,12 +102,7 @@ jobs:
 
     - name: Publish the application 📢
       run:  |
-
-       msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-       msbuild $env:Solution_Name /t:Publish /p:Configuration=$env:Configuration
-      
-
-      #  msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
+       msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
 
 # ___________________________________________________________________________________________________________
 
@@ -129,10 +124,10 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
           name: Published Code
-          # path: ${{ env.Publish_Directory }}
+          path: ${{ env.Publish_Directory }}
           # path: publish-asp.net
           # path: $env:PublishPath
-          path: ./publish
+          # path: ./publish
     
 # ___________________________________________________________________________________________________________
 
