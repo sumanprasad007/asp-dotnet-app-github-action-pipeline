@@ -46,6 +46,7 @@ jobs:
       Wap_Project_Directory_Upload: ASP.NET.packages.config
 
       App_Packages_Archive: ASP.NET.zip
+      PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
 # ___________________________________________________________________________________________________________
       
     steps:
@@ -141,7 +142,7 @@ jobs:
     - name: Create pull request
       uses: peter-evans/create-pull-request@v3
       with:
-            token: ${{ secrets.MY_GITHUB_TOKEN }}
+            token: ${{ env.PAT_TOKEN }}
             branch: move-artifact
             title: "Move artifact to root folder"
             body: "This pull request moves the artifact to the root folder."
