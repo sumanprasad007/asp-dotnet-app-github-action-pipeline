@@ -128,7 +128,15 @@ jobs:
           # path: publish-asp.net
           # path: $env:PublishPath
           # path: ./publish
-    
+
+    # - name: Checkout repository
+    #   uses: actions/checkout@v2
+        
+    - name: Move artifact to repository root
+      run: |
+          mkdir root_artifact
+          mv ${{ env.Publish_Directory }} root_artifact
+
 # ___________________________________________________________________________________________________________
 
     #     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
