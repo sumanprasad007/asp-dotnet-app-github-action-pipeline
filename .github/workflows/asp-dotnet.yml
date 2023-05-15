@@ -104,6 +104,7 @@ jobs:
     - name: Publish the application 📢
       run:  |
        msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
+       msbuild ASP.NET.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Publish /p:PublishDir="C:\Path\To\Your\Output\Folder"
 
 # ___________________________________________________________________________________________________________
 
@@ -135,6 +136,8 @@ jobs:
             git checkout -b move-artifact
             mkdir root_artifact
             cp -R ${{ env.Publish_Directory }}/* root_artifact/
+            git config --global user.email "sumanprasad9766@gmail.com"
+            git config --global user.name "Suman prasad"
             git add .
             git commit -m "Move artifact to root folder"
             git push origin move-artifact
