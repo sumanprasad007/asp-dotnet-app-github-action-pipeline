@@ -14,11 +14,15 @@ jobs:
 
   build:
 
+    # runs-on: windows-latest  
+    runs-on: $ {{ matrix.os }}
+
     strategy:
       matrix:
         configuration: [Release]
+        os: [windows-latest, ubuntu-latest]
+        dotnet-version: [5.0.x, 6.0.x, 7.0.x]
 
-    runs-on: windows-latest  
 
     env:
       Solution_Name: ASP.NET.sln                          
@@ -54,7 +58,7 @@ jobs:
     - name: Install .NET SDK ☸
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: '7.0.x'
+        dotnet-version: $ {{ matrix.dotnet-version }}
 # --------------------------------------------------------------------------------------------------------------
 
     # Install the .NET Core workload
