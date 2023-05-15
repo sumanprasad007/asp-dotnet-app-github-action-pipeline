@@ -1,52 +1,52 @@
 
-version: 2.1
-jobs:
-  build:
-    docker:
-      - image: mcr.microsoft.com/dotnet/sdk:6.0
-    environments:
-      Solution_Name: ASP.NET.sln
-    steps:
-      - checkout
-      - run:
-          name: Install NuGet and MSBuild
-          command: |
-            apt-get update
-            apt-get install -y nuget msbuild
-      - run:
-          name: Restore NuGet Packages
-          command: nuget restore ASP.NET.sln
-      - run:
-          name: Build and Publish Application
-          command: |
-            msbuild ${{ env.Solution_Name }} /t:Restore /p:Configuration=Release
-            mkdir Publish
-            msbuild ${{ env.Solution_Name }} /t:Publish /p:OutputPath=$(pwd)/Publish
-      - persist_to_workspace:
-          root: .
-          paths:
-            - Publish
-  artifacts:
-    working_directory: ~/project
-    paths:
-      - Publish
-    name: PublishedCode
+# version: 2.1
+# jobs:
+#   build:
+#     docker:
+#       - image: mcr.microsoft.com/dotnet/sdk:6.0
+#     environments:
+#       Solution_Name: ASP.NET.sln
+#     steps:
+#       - checkout
+#       - run:
+#           name: Install NuGet and MSBuild
+#           command: |
+#             apt-get update
+#             apt-get install -y nuget msbuild
+#       - run:
+#           name: Restore NuGet Packages
+#           command: nuget restore ASP.NET.sln
+#       - run:
+#           name: Build and Publish Application
+#           command: |
+#             msbuild ${{ env.Solution_Name }} /t:Restore /p:Configuration=Release
+#             mkdir Publish
+#             msbuild ${{ env.Solution_Name }} /t:Publish /p:OutputPath=$(pwd)/Publish
+#       - persist_to_workspace:
+#           root: .
+#           paths:
+#             - Publish
+#   artifacts:
+#     working_directory: ~/project
+#     paths:
+#       - Publish
+#     name: PublishedCode
 
-workflows:
-  version: 2
-  build_and_publish:
-    jobs:
-      - build
+# workflows:
+#   version: 2
+#   build_and_publish:
+#     jobs:
+#       - build
 
-# In the .circleci/config.yml file:
+# # In the .circleci/config.yml file:
 
-# The version key sets the configuration version to 2.1.
-# The jobs section defines the build job.
-# The docker section specifies the Docker image to use for the job, in this case, mcr.microsoft.com/dotnet/sdk:6.0.
-# The steps section contains the steps to be executed in the job.
-# The checkout step checks out the source code.
-# The subsequent run steps install NuGet and MSBuild, restore NuGet packages, build the application, and publish it.
-# The persist_to_workspace step persists the Publish directory to the workspace, making it available for downstream jobs.
-# The artifacts section defines the artifact to be created from the Publish directory.
-# The workflows section defines the workflow for the build and publish job.
-# You can use this .circleci/config.yml file in your CircleCI configuration to configure your CI/CD pipeline and execute the build and publish steps.
+# # The version key sets the configuration version to 2.1.
+# # The jobs section defines the build job.
+# # The docker section specifies the Docker image to use for the job, in this case, mcr.microsoft.com/dotnet/sdk:6.0.
+# # The steps section contains the steps to be executed in the job.
+# # The checkout step checks out the source code.
+# # The subsequent run steps install NuGet and MSBuild, restore NuGet packages, build the application, and publish it.
+# # The persist_to_workspace step persists the Publish directory to the workspace, making it available for downstream jobs.
+# # The artifacts section defines the artifact to be created from the Publish directory.
+# # The workflows section defines the workflow for the build and publish job.
+# # You can use this .circleci/config.yml file in your CircleCI configuration to configure your CI/CD pipeline and execute the build and publish steps.

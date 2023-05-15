@@ -129,14 +129,22 @@ jobs:
           # path: $env:PublishPath
           # path: ./publish
 
-    - name: Checkout repository
-      uses: actions/checkout@v2
-        
-    - name: Move artifact to repository root
+    - name: Create new branch
       run: |
-          mkdir root_artifact
-          mv ${{ env.Publish_Directory }} root_artifact
-
+            git checkout -b move-artifact
+            mkdir root_artifact
+            cp -R ${{ env.Publish_Directory }}/* root_artifact/
+            git add .
+            git commit -m "Move artifact to root folder"
+            git push origin move-artifact
+        
+    - name: Create pull request
+      uses: peter-evans/create-pull-request@v3
+      with:
+            token: ${{ secrets.MY_GITHUB_TOKEN }}
+            branch: move-artifact
+            title: "Move artifact to root folder"
+            body: "This pull request moves the artifact to the root folder."
 # ___________________________________________________________________________________________________________
 
     #     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
