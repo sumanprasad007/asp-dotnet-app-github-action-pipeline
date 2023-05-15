@@ -38,6 +38,8 @@ jobs:
 
 # ___________________________________________________________________________________________________________
       # PublishPath: "$(System.DefaultWorkingDirectory)"
+      App_Packages_Directory: packages
+      Wap_Project_Directory_Upload: ASP.NET.packages.config
 
 # ___________________________________________________________________________________________________________
       
@@ -120,6 +122,15 @@ jobs:
           path: ${{ env.Publish_Directory }}
           # path: publish-asp.net
           # path: $env:PublishPath
+
+# ___________________________________________________________________________________________________________
+
+        # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
+    - name: Upload build artifacts
+      uses: actions/upload-artifact@v2
+      with:
+          name: MSIX Package
+          path: ${{ env.Wap_Project_Directory_Upload }}\${{ env.App_Packages_Directory }}
 # ___________________________________________________________________________________________________________
    
     # - name: Generate deployment package
