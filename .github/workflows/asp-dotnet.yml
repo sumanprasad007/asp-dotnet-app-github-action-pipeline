@@ -155,12 +155,13 @@ jobs:
           path: ${{ env.PublishDir }}
           # path: d:\publish
 
-    - name: Download the artifacts
-      uses: actions/download-artifact@v2
-      with:
-          name: Published Code
-          path: ${{ env.PublishDir }}
-          
+    # - name: Download the artifacts
+    #   uses: actions/download-artifact@v2
+    #   with:
+    #       name: Published Code
+    #       path: ${{ env.PublishDir }}
+  # ___________________________________________________________________________________________________________     
+
     #  # Test downloading a single artifact
     # - name: Download artifact 
     #   uses: ./
