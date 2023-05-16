@@ -108,9 +108,9 @@ jobs:
         linter: dotnet-format
         options: --check
       # Optional: define which github-actions you want to execute. Default: all github-actions are executed
-        # github-actions: eslint, markdownlint, phpstan, psscriptanalyzer, stylelint, hadolint, ansible-lint, yamllint, shellcheck, jsonlint, write-good
+      # github-actions: eslint, markdownlint, phpstan, psscriptanalyzer, stylelint, hadolint, ansible-lint, yamllint, shellcheck, jsonlint, write-good
       # Optional: define a specific github token to use for github api (otherwise a default is used)
-        # github_token: ${{ secrets.GITHUB_TOKEN }}
+      # github_token: ${{ secrets.GITHUB_TOKEN }}
 
 # ___________________________________________________________________________________________________________
 
