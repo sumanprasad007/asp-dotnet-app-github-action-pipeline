@@ -157,8 +157,15 @@ jobs:
       uses: actions/download-artifact@v2
       with:
           name: Published Code
-          path: ${{ env.Publish_Directory }}
+          path: ${{ env.Publish_Directory }}.\ASP.NET.zip 
           
+    #  # Test downloading a single artifact
+    # - name: Download artifact 
+    #   uses: ./
+    #   with:
+    #     name: 'Artifact-A'
+    #     path: ${{ env.Publish_Directory }}.\ASP.NET.zip  
+            
           
     # - name: Create new branch
     #   run: |
