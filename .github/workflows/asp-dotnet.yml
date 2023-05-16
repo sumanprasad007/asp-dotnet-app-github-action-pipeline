@@ -118,7 +118,7 @@ jobs:
     - name: Publish the application 📢
       run:  |
 
-       msbuild $env:Solution_Name /p:Configuration=Release /p:Platform="Any CPU" /t:Build;Publish /p:PublishDir=$env:PublishDir
+       msbuild $env:Solution_Name /p:Configuration=Release /p:Platform="Any CPU" /t:Build /p:PublishDir=$env:PublishDir
 
       
 # ___________________________________________________________________________________________________________
