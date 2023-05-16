@@ -140,17 +140,18 @@ jobs:
     #         name: ASP.NET
     #         path: ${{ env.Publish_Directory }}
 
-
+    - name: Publish Project
+      run: dotnet publish -c Release -r win-x64 --output ./publish
 # ___________________________________________________________________________________________________________
 
     - name: Publish artifacts ☁
       uses: actions/upload-artifact@v2
       with:
           name: Published Code
-          path: ${{ env.Publish_Directory }}
+          # path: ${{ env.Publish_Directory }}
           # path: publish-asp.net
           # path: $env:PublishPath
-          # path: ./publish
+          path: ./publish
           # path: d:\publish
 
     - name: Download the artifacts
