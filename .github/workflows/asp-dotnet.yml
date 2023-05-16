@@ -117,9 +117,10 @@ jobs:
 
     - name: Publish the application 📢
       run:  |
-       msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
-       msbuild ASP.NET.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Publish /p:PublishDir=$env:PublishDir
 
+       msbuild $env:Wap_Project_Path /p:Configuration=Release /p:Platform="Any CPU" /t:Build;Publish /p:PublishDir=$env:PublishDir
+
+      
 # ___________________________________________________________________________________________________________
 
     # - name: Publish 📢
