@@ -129,6 +129,14 @@ jobs:
     #   # run: dotnet publish -c Release -o ASP.NET.sln
     #   # run: msbuild /p:Configuration=Release /t:Publish ASP.NET.sln
     #   run: msbuild Solution_Name /t:Restore;Publish /p:Configuration=Release /p:PublishDir=$env:PublishPath /p:DeployOnBuild=true /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /p:PublishUrl=$env:PublishPath /p:VisualStudioVersion=15.0
+   
+   
+    # -name: Upload artifact
+    #     uses: actions/upload-artifact@master
+    #     with:
+    #         name: ASP.NET
+    #         path: ${{ env.Publish_Directory }}
+
 
 # ___________________________________________________________________________________________________________
 
@@ -142,24 +150,31 @@ jobs:
           # path: ./publish
           # path: d:\publish
 
-    - name: Create new branch
-      run: |
-            git checkout -b move-artifact
-            mkdir root_artifact
-            cp -R ${{ env.Publish_Directory }}/* root_artifact/
-            git config --global user.email "sumanprasad9766@gmail.com"
-            git config --global user.name "Suman prasad"
-            git add .
-            git commit -m "Move artifact to root folder"
-            git push origin move-artifact
-        
-    - name: Create pull request
-      uses: peter-evans/create-pull-request@v3
+    - name: Download the artifacts
+      uses: actions/download-artifact@v2
       with:
-            token: ${{ env.PAT_TOKEN }}
-            branch: move-artifact
-            title: "Move artifact to root folder"
-            body: "This pull request moves the artifact to the root folder."
+          name: Published Code
+          path: ${{ env.Publish_Directory }}
+          
+          
+    # - name: Create new branch
+    #   run: |
+    #         git checkout -b move-artifact
+    #         mkdir root_artifact
+    #         cp -R ${{ env.Publish_Directory }}/* root_artifact/
+    #         git config --global user.email "sumanprasad9766@gmail.com"
+    #         git config --global user.name "Suman prasad"
+    #         git add .
+    #         git commit -m "Move artifact to root folder"
+    #         git push origin move-artifact
+        
+    # - name: Create pull request
+    #   uses: peter-evans/create-pull-request@v3
+    #   with:
+    #         token: ${{ env.PAT_TOKEN }}
+    #         branch: move-artifact
+    #         title: "Move artifact to root folder"
+    #         body: "This pull request moves the artifact to the root folder."
 # ___________________________________________________________________________________________________________
 
     #     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
