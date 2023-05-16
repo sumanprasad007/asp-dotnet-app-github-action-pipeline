@@ -47,6 +47,7 @@ jobs:
 
       App_Packages_Archive: ASP.NET.zip
       PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
+      PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET.sln
 # ___________________________________________________________________________________________________________
       
     steps:
@@ -117,7 +118,7 @@ jobs:
     - name: Publish the application 📢
       run:  |
        msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
-       msbuild ASP.NET.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Publish /p:PublishDir="d:\publish"
+       msbuild ASP.NET.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Publish /p:PublishDir=$env:PublishDir
 
 # ___________________________________________________________________________________________________________
 
@@ -140,8 +141,8 @@ jobs:
     #         name: ASP.NET
     #         path: ${{ env.Publish_Directory }}
 
-    - name: Publish Project
-      run: msbuild /t:Publish /p:Configuration=Release /p:PublishDir=./publish/
+    # - name: Publish Project
+    #   run: msbuild /t:Publish /p:Configuration=Release /p:PublishDir=./publish/
 # ___________________________________________________________________________________________________________
 
     - name: Publish artifacts ☁
@@ -151,14 +152,14 @@ jobs:
           # path: ${{ env.Publish_Directory }}
           # path: publish-asp.net
           # path: $env:PublishPath
-          path: ./publish
+          path: ${{ env.PublishDir }}
           # path: d:\publish
 
     - name: Download the artifacts
       uses: actions/download-artifact@v2
       with:
           name: Published Code
-          path: ${{ env.Publish_Directory }}.\ASP.NET.zip 
+          path: ${{ env.PublishDir }}
           
     #  # Test downloading a single artifact
     # - name: Download artifact 
