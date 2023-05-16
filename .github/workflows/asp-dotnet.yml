@@ -141,7 +141,7 @@ jobs:
     #         path: ${{ env.Publish_Directory }}
 
     - name: Publish Project
-      run: dotnet publish -c Release -r win-x64 --output ./publish
+      run: msbuild publish -c Release -r win-x64 --output ./publish
 # ___________________________________________________________________________________________________________
 
     - name: Publish artifacts ☁
