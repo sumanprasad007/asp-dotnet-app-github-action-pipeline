@@ -47,7 +47,7 @@ jobs:
 
       App_Packages_Archive: ASP.NET.zip
       PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
-      PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET.sln
+      PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline
 # ___________________________________________________________________________________________________________
       
     steps:
