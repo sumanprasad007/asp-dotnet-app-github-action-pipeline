@@ -101,13 +101,16 @@ jobs:
     #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
 # ___________________________________________________________________________________________________________
     - name: Lint code Base 🧹
-      uses: github/super-linter@v3
+      # uses: github/super-linter@v3
+      uses: github/aur-actions-dotnet-lint@v1
       with:
-      # Optional: define which github-actions you want to execute. Default: all github-actions are executed
-        github-actions: eslint, markdownlint, phpstan, psscriptanalyzer, stylelint, hadolint, ansible-lint, yamllint, shellcheck, jsonlint, write-good
-      # Optional: define a specific github token to use for github api (otherwise a default is used)
-        github_token: ${{ secrets.GITHUB_TOKEN }}
         DEFAULT_BRANCH: main
+        linter: dotnet-format
+        options: --check
+      # Optional: define which github-actions you want to execute. Default: all github-actions are executed
+        # github-actions: eslint, markdownlint, phpstan, psscriptanalyzer, stylelint, hadolint, ansible-lint, yamllint, shellcheck, jsonlint, write-good
+      # Optional: define a specific github token to use for github api (otherwise a default is used)
+        # github_token: ${{ secrets.GITHUB_TOKEN }}
 
 # ___________________________________________________________________________________________________________
 
@@ -183,6 +186,16 @@ jobs:
     #   with:
     #       name: MSIX Package
     #       path: ${{ env.Wap_Project_Directory_Upload }}\${{ env.App_Packages_Directory }}
+
+     - name: Deploy to AWS EC2
+       uses: aws-actions/aws-codedeploy-appspec-action@v1
+       env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          APPLICATION_NAME: ASP.NET
+
+
+
 
 #  ___________________________________________________________________________________________________________
     # # Archive the package
