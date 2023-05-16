@@ -47,7 +47,7 @@ jobs:
 
       App_Packages_Archive: ASP.NET.zip
       PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
-      PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\bin
+      PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET
 # ___________________________________________________________________________________________________________
       
     steps:
@@ -142,8 +142,8 @@ jobs:
     #         name: ASP.NET
     #         path: ${{ env.Publish_Directory }}
 
-    # - name: Publish Project
-    #   run: msbuild /t:Publish /p:Configuration=Release /p:PublishDir=./publish/
+    - name: Publish Project
+      run: msbuild /t:Publish /p:Configuration=Release /p:PublishDir=./publish/
 # ___________________________________________________________________________________________________________
 
     - name: Publish artifacts ☁
