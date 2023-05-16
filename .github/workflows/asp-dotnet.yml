@@ -100,11 +100,21 @@ jobs:
     # - name: Test
     #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
 # ___________________________________________________________________________________________________________
+    - name: Lint code Base 🧹
+      uses: github/super-linter@v3
+      with:
+      # Optional: define which github-actions you want to execute. Default: all github-actions are executed
+        github-actions: eslint, markdownlint, phpstan, psscriptanalyzer, stylelint, hadolint, ansible-lint, yamllint, shellcheck, jsonlint, write-good
+      # Optional: define a specific github token to use for github api (otherwise a default is used)
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        DEFAULT_BRANCH: main
+
+# ___________________________________________________________________________________________________________
 
     - name: Publish the application 📢
       run:  |
        msbuild $env:Solution_Name /t:Publish /p:OutputPath=$env:Publish_Directory
-       msbuild ASP.NET.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Publish /p:PublishDir="C:\Path\To\Your\Output\Folder"
+       msbuild ASP.NET.sln /p:Configuration=Release /p:Platform="Any CPU" /t:Publish /p:PublishDir="d:\publish"
 
 # ___________________________________________________________________________________________________________
 
@@ -130,6 +140,7 @@ jobs:
           # path: publish-asp.net
           # path: $env:PublishPath
           # path: ./publish
+          # path: d:\publish
 
     - name: Create new branch
       run: |
