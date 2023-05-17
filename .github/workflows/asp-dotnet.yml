@@ -122,7 +122,7 @@ jobs:
 
        msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl="D:\deployedApp\newapp"
 
-       
+
 
       #  msbuild WebApplication.csproj /p:DeployOnBuild=true /p:PublishUrl="C:\deployedApp\newapp"
        # msbuild WebApplication.csproj /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default
@@ -166,11 +166,11 @@ jobs:
           path: D:\deployedApp\newapp
           # path: d:\publish
 
-    - name: Download the artifacts
-      uses: actions/download-artifact@v2
-      with:
-          name: Published Code
-          path: ${{ env.Publish_Directory }}
+    # - name: Download the artifacts
+    #   uses: actions/download-artifact@v2
+    #   with:
+    #       name: Published Code
+    #       path: ${{ env.Publish_Directory }}
 
  #___________________________________________________________________________________________________________     
 

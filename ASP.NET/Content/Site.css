@@ -1,6 +1,10 @@
-﻿body {
+﻿/* body {
     padding-top: 50px;
     padding-bottom: 20px;
+} */
+body {
+    padding-top: 80px;
+    padding-bottom: 40px;
 }
 
 /* Set padding to keep content from hitting the edges */
