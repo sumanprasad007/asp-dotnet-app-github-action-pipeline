@@ -83,7 +83,6 @@ jobs:
     # Execute all unit tests in the solution
 #     - name: Execute unit tests
 #       run: dotnet test
-
 # ___________________________________________________________________________________________________________
     - name: Setup NuGet.exe for use with actions 
       uses: NuGet/setup-nuget@v1.2.0
@@ -119,7 +118,6 @@ jobs:
       run:  |
 
        msbuild $env:Solution_Name /p:Configuration=Release /p:Platform="Any CPU" /t:Build /p:PublishDir=$env:PublishDir
-
       
 # ___________________________________________________________________________________________________________
 
