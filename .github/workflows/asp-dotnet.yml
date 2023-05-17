@@ -14,8 +14,8 @@ jobs:
 
   build:
 
-    # runs-on: windows-latest  
-    runs-on: self-hosted
+    runs-on: windows-latest  
+    # runs-on: self-hosted
     # runs-on: $ {{ matrix.os }}
 
     strategy:
@@ -253,27 +253,27 @@ jobs:
     #     asset_content_type: application/zip
 # ___________________________________________________________________________________________________________
    
-    - name: Generate deployment package
-      run: |
-        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    # - name: Generate deployment package
+    #   run: |
+    #     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
       
-        choco install zip -y
+    #     choco install zip -y
 
-        zip -r deploy.zip . -x 'D:\deployedApp\newapp'
+    #     zip -r deploy.zip . -x 'D:\deployedApp\newapp'
 
-      #     zip -r deploy.zip . -x '*.git*'
+    #   #     zip -r deploy.zip . -x '*.git*'
 
 
-    - name: Deploy to AWS Elastic Beanstalk 🚀
-      uses: einaregilsson/beanstalk-deploy@v16
-      with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          application_name: "ASP.NET Application"
-          environment_name: "ASPNETApplication-env"
-          version_label: "v${{ github.run_number }}"
-          region: "us-east-1"
-          deployment_package: "deploy.zip"
+    # - name: Deploy to AWS Elastic Beanstalk 🚀
+    #   uses: einaregilsson/beanstalk-deploy@v16
+    #   with:
+    #       aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #       aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    #       application_name: "ASP.NET Application"
+    #       environment_name: "ASPNETApplication-env"
+    #       version_label: "v${{ github.run_number }}"
+    #       region: "us-east-1"
+    #       deployment_package: "deploy.zip"
 
     # - name: Deployment done ✅
     #   run: echo "The deployment was successful!" 
