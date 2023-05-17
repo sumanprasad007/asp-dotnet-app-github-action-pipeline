@@ -36,8 +36,8 @@ jobs:
       # Publish_Directory: ${{ github.workspace }}/publish
       # Publish_Directory: ${{ github.workspace }}/WebApplication2-github-cicd-pipeline/publish
       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin/Release/netcoreapp3.1/publish"
-      Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
-      # Publish_Directory: "${{ github.workspace }}\publish"
+      # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
+      Publish_Directory: "${{ github.workspace }}/publish"
       # Publish_Directory: "${{ github.workspace }}\""
 
 # ___________________________________________________________________________________________________________
@@ -93,7 +93,7 @@ jobs:
     - name: Restore NuGet Packages 📚
       run: nuget restore ASP.NET.sln
 
-    - name: Build the application 💥
+    - name: Restore the application 💥
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
       # run: msbuild /p:Configuration=Release
       # run: msbuild /p:Configuration=Release /t:Publish "Wap_Project_Path"
@@ -117,7 +117,7 @@ jobs:
 
 # ___________________________________________________________________________________________________________
 
-    - name: Publish the application 📢
+    - name: Build & Publish the application 📢
       run:  |
 
        msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl="D:\deployedApp\newapp"
@@ -164,12 +164,13 @@ jobs:
           path: D:\deployedApp\newapp
           # path: d:\publish
 
-    # - name: Download the artifacts
-    #   uses: actions/download-artifact@v2
-    #   with:
-    #       name: Published Code
-    #       path: ${{ env.PublishDir }}
-  # ___________________________________________________________________________________________________________     
+    - name: Download the artifacts
+      uses: actions/download-artifact@v2
+      with:
+          name: Published Code
+          path: ${{ env.Publish_Directory }}
+
+ #___________________________________________________________________________________________________________     
 
     #  # Test downloading a single artifact
     # - name: Download artifact 
