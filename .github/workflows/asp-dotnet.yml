@@ -37,7 +37,7 @@ jobs:
       # Publish_Directory: ${{ github.workspace }}/WebApplication2-github-cicd-pipeline/publish
       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin/Release/netcoreapp3.1/publish"
       Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
-      # Publish_Directory: "${{ github.workspace }}\Publish"
+      # Publish_Directory: "${{ github.workspace }}\publish"
       # Publish_Directory: "${{ github.workspace }}\""
 
 # ___________________________________________________________________________________________________________
@@ -46,9 +46,10 @@ jobs:
       Wap_Project_Directory_Upload: ASP.NET.packages.config
 
       App_Packages_Archive: ASP.NET.zip
-      PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
+      # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
       # PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET
-      PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET\bin
+      # PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET\bin
+      PublishDir: "${{ github.workspace }}/publish"
 # ___________________________________________________________________________________________________________
       
     steps:
