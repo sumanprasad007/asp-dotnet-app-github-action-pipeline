@@ -49,6 +49,7 @@ jobs:
       # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
       # PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET
       # PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET\bin
+      # PublishDir: "${{ github.workspace }}/publish"
       PublishDir: "${{ github.workspace }}/publish"
 # ___________________________________________________________________________________________________________
       
@@ -119,8 +120,13 @@ jobs:
     - name: Publish the application 📢
       run:  |
 
-       msbuild $env:Solution_Name /p:Configuration=Release /p:Platform="Any CPU" /t:Build /p:PublishDir=$env:PublishDir
+       msbuild ASP.NET/ASP.NET.csproj /p:DeployOnBuild=true /p:PublishUrl=$env:PublishDir
+
+      #  msbuild WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<FolderProfile>
+
+      #  msbuild $env:Solution_Name /p:Configuration=Release /p:Platform="Any CPU" /t:Build /p:PublishDir=$env:PublishDir
       
+       
 # ___________________________________________________________________________________________________________
 
     # - name: Publish 📢
