@@ -120,10 +120,11 @@ jobs:
     - name: Publish the application 📢
       run:  |
 
-       msbuild ASP.NET/ASP.NET.csproj /p:DeployOnBuild=true /p:PublishUrl=$env:PublishDir
+       msbuild WebApplication.csproj /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl="D:\deployedApp\newapp"
 
+      #  msbuild WebApplication.csproj /p:DeployOnBuild=true /p:PublishUrl="C:\deployedApp\newapp"
+       # msbuild WebApplication.csproj /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default
       #  msbuild WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<FolderProfile>
-
       #  msbuild $env:Solution_Name /p:Configuration=Release /p:Platform="Any CPU" /t:Build /p:PublishDir=$env:PublishDir
       
        
