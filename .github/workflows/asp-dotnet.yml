@@ -14,7 +14,8 @@ jobs:
 
   build:
 
-    runs-on: windows-latest  
+    # runs-on: windows-latest  
+    runs-on: self-hosted
     # runs-on: $ {{ matrix.os }}
 
     strategy:
@@ -272,7 +273,7 @@ jobs:
           environment_name: "ASPNETApplication-env"
           version_label: "v${{ github.run_number }}"
           region: "us-east-1"
-          deployment_package: "*deploy.zip"
+          deployment_package: "deploy.zip"
 
     # - name: Deployment done ✅
     #   run: echo "The deployment was successful!" 
