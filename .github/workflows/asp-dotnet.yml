@@ -167,7 +167,7 @@ jobs:
           # path: publish-asp.net
           # path: $env:PublishPath
           # path: ${{ env.PublishDir }}
-          path: D:\deployedApp\newapp
+          path: ${{ github.workspace }}/publish
           # path: d:\publish
 
     # - name: Download the artifacts
