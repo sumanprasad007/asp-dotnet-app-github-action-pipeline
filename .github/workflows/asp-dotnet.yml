@@ -146,7 +146,7 @@ jobs:
 # ___________________________________________________________________________________________________________
 
     - name: Publish artifacts ☁
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3.1.2
       with:
           name: Published Code
           # path: ${{ env.Publish_Directory }}
