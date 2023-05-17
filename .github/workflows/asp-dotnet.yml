@@ -270,12 +270,10 @@ jobs:
           environment_name: "ASPNETApplication-env"
           version_label: "v${{ github.run_number }}"
           region: "us-east-1"
-          deployment_package: "D:/deployedApp/newapp/Published Code*.zip"
+          deployment_package: "*D:/deployedApp/newapp*"
 
     # - name: Deployment done ✅
     #   run: echo "The deployment was successful!" 
-
-
 # ___________________________________________________________________________________________________________
 
 
