@@ -52,7 +52,7 @@ jobs:
       # PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET\bin
       # PublishDir: "${{ github.workspace }}/publish"
       PublishDir: "${{ github.workspace }}/publish"
-      PublishUrl: D:\
+      PublishUrl: D:\Artifacts
 # ___________________________________________________________________________________________________________
       
     steps:
