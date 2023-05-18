@@ -152,16 +152,16 @@ jobs:
     #     # msbuild $env:Solution_Name /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=\ ASP.NET/ASP.NET.csproj
     #     msbuild $env:Solution_Name /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=\
 
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v2
+    # - name: Initialize CodeQL
+    #   uses: github/codeql-action/init@v2
 
 
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+    # - name: Autobuild
+    #   uses: github/codeql-action/autobuild@v2
 
-      
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v2 
+
+    # - name: Perform CodeQL Analysis
+    #   uses: github/codeql-action/analyze@v2 
 
 # ___________________________________________________________________________________________________________
     # - name: Publish
