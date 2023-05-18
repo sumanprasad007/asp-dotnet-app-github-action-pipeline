@@ -53,6 +53,14 @@ jobs:
       # PublishDir: "${{ github.workspace }}/publish"
       PublishDir: "${{ github.workspace }}/publish"
       PublishUrl: D:\Artifacts
+      
+    
+      SONARSCANNER_RELEASE_DOWNLOADURL: https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/5.3.1.36242/sonar-scanner-msbuild-5.3.1.36242-net46.zip
+      SOLUTION_PATH: ASP.NET.sln
+#       SONAR_HOST: 
+#       SONAR_PROJECT_KEY: 
+      SONAR_PROJECT_NAME: ASP.NET
+      SONAR_PROJECT_VERSION: 1.2.3
 # ___________________________________________________________________________________________________________
       
     steps:
@@ -180,7 +188,22 @@ jobs:
     #   with:
     #       name: Published Code
     #       path: ${{ env.Publish_Directory }}
+ 
+    
+    
+    
+    
+    
+    - name: Download and Unzip SonarScanner
+      run: |
+          curl -L -o sonarscanner.zip ${{ env.SONARSCANNER_RELEASE_DOWNLOADURL }}
+          Expand-Archive -Path .\sonarscanner.zip -DestinationPath .\SonarScanner -Verbose
 
+    - name: Run SonarScanner
+      run: |
+          SonarScanner.MSBuild.exe begin /k:"${{ env.SONAR_PROJECT_KEY }}" /n:"{{ env.SONAR_PROJECT_NAME }} /v:"${{ env.SONAR_PROJECT_VERSION }"" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ env.SONAR_HOST }}"
+          MSBuild.exe ${{ env.SOLUTION_PATH}} /t:Rebuild
+          SonarScanner.MSBuild.exe end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
  #___________________________________________________________________________________________________________     
 
     #  # Test downloading a single artifact
