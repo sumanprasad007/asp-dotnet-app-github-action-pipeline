@@ -52,6 +52,7 @@ jobs:
       # PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET\bin
       # PublishDir: "${{ github.workspace }}/publish"
       PublishDir: "${{ github.workspace }}/publish"
+      PublishUrl: D:\deployedApp
 # ___________________________________________________________________________________________________________
       
     steps:
@@ -121,7 +122,7 @@ jobs:
     - name: Build & Publish the application 📢
       run:  |
 
-       msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl="D:\deployedApp\newapp"
+       msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl
       #  msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl="D:\deployedApp\newapp"
 
       #  msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=MSDeploy /p:DeployIisAppPath=<IISSiteName> /p:PublishProfile=Default
@@ -168,8 +169,10 @@ jobs:
           # path: publish-asp.net
           # path: $env:PublishPath
           # path: ${{ env.PublishDir }}
-          path: D:\deployedApp\newapp
+          path: ${{ env.PublishUrl }}
           # path: d:\publish
+   
+
 
     # - name: Download the artifacts
     #   uses: actions/download-artifact@v2
