@@ -126,7 +126,6 @@ jobs:
       # github-actions: eslint, markdownlint, phpstan, psscriptanalyzer, stylelint, hadolint, ansible-lint, yamllint, shellcheck, jsonlint, write-good
       # Optional: define a specific github token to use for github api (otherwise a default is used)
       # github_token: ${{ secrets.GITHUB_TOKEN }}
-
 # ___________________________________________________________________________________________________________
 
     - name: Build & Publish the application 📢
