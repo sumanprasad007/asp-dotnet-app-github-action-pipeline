@@ -52,7 +52,7 @@ jobs:
       # PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET\bin
       # PublishDir: "${{ github.workspace }}/publish"
       PublishDir: "${{ github.workspace }}/publish"
-      PublishUrl: D:\deployedApp
+      PublishUrl: D:\
 # ___________________________________________________________________________________________________________
       
     steps:
@@ -83,7 +83,8 @@ jobs:
 
     - name: Setup MSBuild.exe 🏗
       # uses: microsoft/setup-msbuild@v1.0.2
-      uses: microsoft/setup-msbuild@v1.0.3
+      # uses: microsoft/setup-msbuild@v1.0.3
+      uses: microsoft/setup-msbuild@v1.1
 
     # Execute all unit tests in the solution
 #     - name: Execute unit tests
