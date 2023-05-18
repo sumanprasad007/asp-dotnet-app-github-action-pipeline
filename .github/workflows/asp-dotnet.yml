@@ -1,5 +1,5 @@
 
-name: GitHub-Pipeline 👩‍💻
+name: GitHub-Pipeline for .NET 👩‍💻
 
 on:
   push:
@@ -151,6 +151,18 @@ jobs:
     #   run: |
     #     # msbuild $env:Solution_Name /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=\ ASP.NET/ASP.NET.csproj
     #     msbuild $env:Solution_Name /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=\
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+
+
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+
+      
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2 
+
 # ___________________________________________________________________________________________________________
     # - name: Publish
      
@@ -181,6 +193,7 @@ jobs:
           path: ${{ env.PublishUrl }}
           # path: d:\publish
    
+# ___________________________________________________________________________________________________________
 
 
     # - name: Download the artifacts
@@ -189,6 +202,12 @@ jobs:
     #       name: Published Code
     #       path: ${{ env.Publish_Directory }}
   
+    # - name: Publish NuGet to GitHub Packages
+    #   run: |
+    #     nuget sources add -username ${{ github.repository_owner }} -password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github -source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+    #     nuget setapikey ${{ secrets.GITHUB_TOKEN }} -Source "github"
+    #     nuget push <NAME_OF_YOUR_PACKAGE>.nupkg -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"  
+# ___________________________________________________________________________________________________________
         
     # - name: Download and Unzip SonarScanner
     #   run: |
@@ -277,7 +296,21 @@ jobs:
     #     asset_name: ${{ env.App_Packages_Archive }}
     #     asset_content_type: application/zip
 # ___________________________________________________________________________________________________________
-   
+  # deploy:
+  #   needs: build
+  #   runs-on: ubuntu-latest
+  #   # environment: Dev
+  #   permissions:
+  #     id-token: write
+  #     contents: read
+  #   steps:
+  #   - uses: actions/checkout@v2
+  #   - uses: aws-actions/configure-aws-credentials@v1
+  #     with:
+  #       role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+  #       role-session-name: GitHub-Action-Role
+  #       aws-region: ${{ env.AWS_REGION }}
+
     # - name: Generate deployment package
     #   run: |
     #     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
