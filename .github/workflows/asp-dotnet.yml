@@ -50,7 +50,7 @@ jobs:
       PublishUrl: D:\Artifacts
       
     
-      SONARSCANNER_RELEASE_DOWNLOADURL: https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/5.3.1.36242/sonar-scanner-msbuild-5.3.1.36242-net46.zip
+      # SONARSCANNER_RELEASE_DOWNLOADURL: https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/5.3.1.36242/sonar-scanner-msbuild-5.3.1.36242-net46.zip
 
       SOLUTION_PATH: ASP.NET.sln
 #       SONAR_HOST: 
@@ -202,7 +202,7 @@ jobs:
     
     - name: Sync files to S3 🔄   
       run: |
-        aws s3 sync ./"D:\Artifacts" s3://my-github-action-bucket
+        aws s3 cp ./D:\Artifacts s3://my-github-action-bucket
 
 # ___________________________________________________________________________________________________________
   create-s3-deploy:
