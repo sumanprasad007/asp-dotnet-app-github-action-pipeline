@@ -265,7 +265,7 @@ jobs:
     #     MSBuild.exe "${{ env.SOLUTION_PATH }}" /t:Rebuild
     #     SonarScanner.MSBuild.exe end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
 
- #___________________________________________________________________________________________________________     
+ #___________________________________________________________________________________________________________    
 
     #  # Test downloading a single artifact
     # - name: Download artifact 
