@@ -202,7 +202,7 @@ jobs:
     - name: Sync files to S3 🔄   
       run: |
 
-        aws s3 sync D:/Artifacts s3://my-github-action-bucket
+        aws s3 sync D:/Artifacts/ASP.NET.zip/Content/D_C/a/asp-dotnet-app-github-action-pipeline/asp-dotnet-app-github-action-pipeline/ASP.NET/obj/Debug/Package/PackageTmp/ - ZIP archive, unpacked size 25,768,049 bytes s3://my-github-action-bucket
 
 # ___________________________________________________________________________________________________________
   create-s3-deploy:
