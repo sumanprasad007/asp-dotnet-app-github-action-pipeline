@@ -34,9 +34,6 @@ jobs:
 #       Test_Project_Path: your-test-project-path                 
       Wap_Project_Directory: ASP.NET    
       Csproj_Path: "ASP.NET/ASP.NET.csproj"                 
-      # Publish_Directory: ${{ github.workspace }}/publish
-      # Publish_Directory: ${{ github.workspace }}/WebApplication2-github-cicd-pipeline/publish
-      # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin/Release/netcoreapp3.1/publish"
       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
       Publish_Directory: "${{ github.workspace }}/publish"
       # Publish_Directory: "${{ github.workspace }}\""
@@ -48,15 +45,13 @@ jobs:
 
       App_Packages_Archive: ASP.NET.zip
       # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
-      # PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET
-      # PublishDir: D:\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET\bin
       # PublishDir: "${{ github.workspace }}/publish"
       PublishDir: "${{ github.workspace }}/publish"
       PublishUrl: D:\Artifacts
       
     
       SONARSCANNER_RELEASE_DOWNLOADURL: https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/5.3.1.36242/sonar-scanner-msbuild-5.3.1.36242-net46.zip
-      
+
       SOLUTION_PATH: ASP.NET.sln
 #       SONAR_HOST: 
 #       SONAR_PROJECT_KEY: 
@@ -196,6 +191,20 @@ jobs:
    
 # ___________________________________________________________________________________________________________
 
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+          role-to-assume: $ {{ secrets.IAMROLE_GITHUB}}
+          role-session-name: GitHub-Action-Role
+          aws-region: us-west-1
+
+    - name: Sync files to S3    
+      run: |
+        aws s3 sync ./${{ env.PublishUrl }} s3://my-github-action-bucket
+
+# ___________________________________________________________________________________________________________
+
+
 
     # - name: Download the artifacts
     #   uses: actions/download-artifact@v2
@@ -322,6 +331,8 @@ jobs:
 
     #   #     zip -r deploy.zip . -x '*.git*'
 
+# jobs:
+#   deploy:
 
     # - name: Deploy to AWS Elastic Beanstalk 🚀
     #   uses: einaregilsson/beanstalk-deploy@v16
