@@ -230,13 +230,13 @@ jobs:
             aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     
-            # role-to-assume: arn:aws:iam::980504655373:role/GitHub-Action-Role
-            # role-session-name: GitHub-Action-Role
+            role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+            role-session-name: GitHub-Action-Role
             aws-region: us-east-1
 
       - name: Sync files to S3    
         run: |
-          aws s3 sync ./${{ env.PublishUrl }} s3://my-github-action-bucket
+          aws s3 sync . s3://my-github-action-bucket
 
 # ___________________________________________________________________________________________________________
 
