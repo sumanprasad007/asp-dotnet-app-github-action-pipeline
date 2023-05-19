@@ -189,6 +189,21 @@ jobs:
           path: ${{ env.PublishUrl }}
           # path: d:\publish
    
+
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+              aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+              aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      
+              # role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+              # role-session-name: GitHub-Action-Role
+              aws-region: us-east-1
+    
+    - name: Sync files to S3    
+      run: |
+        aws s3 sync ${{ env.PublishDirectory }} s3://my-github-action-bucket
+
 # ___________________________________________________________________________________________________________
   create-s3-deploy:
     name: Create Deploy
@@ -224,20 +239,20 @@ jobs:
       - name: Checkout 🔗
         uses: actions/checkout@v3
 
-      - name: configure aws credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      # - name: configure aws credentials
+      #   uses: aws-actions/configure-aws-credentials@v2
+      #   with:
+      #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     
-            # role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
-            # role-session-name: GitHub-Action-Role
-            aws-region: us-east-1
+      #       # role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+      #       # role-session-name: GitHub-Action-Role
+      #       aws-region: us-east-1
 
-      - name: Sync files to S3    
-        run: |
+      # - name: Sync files to S3    
+      #   run: |
           
-          aws s3 sync ${{ env.PublishDirectory }}  s3://my-github-action-bucket
+      #     aws s3 sync ${{ env.PublishDirectory }} s3://my-github-action-bucket
 
 # ___________________________________________________________________________________________________________
 
