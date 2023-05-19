@@ -178,31 +178,32 @@ jobs:
     #   run: msbuild /t:Publish /p:Configuration=Release /p:PublishDir=./publish/
 # ___________________________________________________________________________________________________________
 
-    - name: Publish artifacts ☁
-      uses: actions/upload-artifact@v3.1.2
-      with:
-          name: Published Code
-          # path: ${{ env.Publish_Directory }}
-          # path: publish-asp.net
-          # path: $env:PublishPath
-          # path: ${{ env.PublishDir }}
-          path: ${{ env.PublishUrl }}
-          # path: d:\publish
+    # - name: Publish artifacts ☁
+    #   uses: actions/upload-artifact@v3.1.2
+    #   with:
+    #       name: Published Code
+    #       # path: ${{ env.Publish_Directory }}
+    #       # path: publish-asp.net
+    #       # path: $env:PublishPath
+    #       # path: ${{ env.PublishDir }}
+    #       path: ${{ env.PublishUrl }}
+    #       # path: d:\publish
    
-    - name: configure aws credentials 🔑
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-              aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-              aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    # - name: configure aws credentials 🔑
+    #   uses: aws-actions/configure-aws-credentials@v2
+    #   with:
+    #           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+    #           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       
-              # role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
-              # role-session-name: GitHub-Action-Role
-              aws-region: us-east-1
+    #           # role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+    #           # role-session-name: GitHub-Action-Role
+    #           aws-region: us-east-1
     
-    - name: Sync files to S3 🔄   
-      run: |
+    # - name: Sync files to S3 🔄   
+    #   run: |
 
-        aws s3 sync D:\Artifacts\ASP.NET.zip\Content\D_C\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Debug\Package\PackageTmp s3://my-github-action-bucket
+    #     aws s3 sync D:/Artifacts s3://my-github-action-bucket
+
 
 # ___________________________________________________________________________________________________________
   create-s3-deploy:
@@ -239,20 +240,21 @@ jobs:
       - name: Checkout 🔗
         uses: actions/checkout@v3
 
-      # - name: configure aws credentials 🔑
-      #   uses: aws-actions/configure-aws-credentials@v2
-      #   with:
-      #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      - name: configure aws credentials 🔑
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
     
-      #       # role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
-      #       # role-session-name: GitHub-Action-Role
-      #       aws-region: us-east-1
+            # role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+            # role-session-name: GitHub-Action-Role
+            aws-region: us-east-1
 
-      # - name: Sync files to S3 🔄
-      #   run: |
+      - name: Sync files to S3 🔄
+        run: |
           
-      #     aws s3 sync ./${{ env.PublishDirectory }} s3://my-github-action-bucket
+          aws s3 sync D:/Artifacts s3://my-github-action-bucket
+
 
 # ___________________________________________________________________________________________________________
 
