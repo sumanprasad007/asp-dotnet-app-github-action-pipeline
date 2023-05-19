@@ -192,9 +192,9 @@ jobs:
 # ___________________________________________________________________________________________________________
 
     - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v1
+      uses: aws-actions/configure-aws-credentials@v2
       with:
-          role-to-assume: $ {{ secrets.IAMROLE_GITHUB}}
+          role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
           role-session-name: GitHub-Action-Role
           aws-region: us-west-1
 
