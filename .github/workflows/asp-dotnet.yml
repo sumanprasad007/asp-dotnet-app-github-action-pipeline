@@ -178,16 +178,16 @@ jobs:
     #   run: msbuild /t:Publish /p:Configuration=Release /p:PublishDir=./publish/
 # ___________________________________________________________________________________________________________
 
-    # - name: Publish artifacts ☁
-    #   uses: actions/upload-artifact@v3.1.2
-    #   with:
-    #       name: Published Code
-    #       # path: ${{ env.Publish_Directory }}
-    #       # path: publish-asp.net
-    #       # path: $env:PublishPath
-    #       # path: ${{ env.PublishDir }}
-    #       path: ${{ env.PublishUrl }}
-    #       # path: d:\publish
+    - name: Publish artifacts ☁
+      uses: actions/upload-artifact@v3.1.2
+      with:
+          name: Published Code
+          # path: ${{ env.Publish_Directory }}
+          # path: publish-asp.net
+          # path: $env:PublishPath
+          # path: ${{ env.PublishDir }}
+          path: ${{ env.PublishUrl }}
+          # path: d:\publish
    
     # - name: configure aws credentials 🔑
     #   uses: aws-actions/configure-aws-credentials@v2
