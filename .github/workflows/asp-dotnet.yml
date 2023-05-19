@@ -202,7 +202,7 @@ jobs:
     
     - name: Sync files to S3    
       run: |
-        aws s3 sync ${{ env.PublishDirectory }} s3://my-github-action-bucket
+        aws s3 sync ./${{ env.PublishDirectory }} s3://my-github-action-bucket
 
 # ___________________________________________________________________________________________________________
   create-s3-deploy:
@@ -239,7 +239,7 @@ jobs:
       - name: Checkout 🔗
         uses: actions/checkout@v3
 
-      # - name: configure aws credentials
+      # - name: configure aws credentials 🔑
       #   uses: aws-actions/configure-aws-credentials@v2
       #   with:
       #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -249,7 +249,7 @@ jobs:
       #       # role-session-name: GitHub-Action-Role
       #       aws-region: us-east-1
 
-      # - name: Sync files to S3    
+      # - name: Sync files to S3 🔄
       #   run: |
           
       #     aws s3 sync ${{ env.PublishDirectory }} s3://my-github-action-bucket
