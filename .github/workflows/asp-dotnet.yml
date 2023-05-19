@@ -190,17 +190,50 @@ jobs:
           # path: d:\publish
    
 # ___________________________________________________________________________________________________________
+  create-s3-deploy:
+    name: Create S3 Deploy
+    needs: build
+    runs-on: windows-latest
+    permissions:
+      contents: read
+      packages: write
+      
+  # ___________________________________________________________________________________________________________
+    env:
+        Solution_Name: ASP.NET.sln                          
+        #Test_Project_Path: your-test-project-path                 
+        Wap_Project_Directory: ASP.NET    
+        Csproj_Path: "ASP.NET/ASP.NET.csproj"                 
+        # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
+        Publish_Directory: "${{ github.workspace }}/publish"
+        # Publish_Directory: "${{ github.workspace }}\""
+  
+        # PublishPath: "$(System.DefaultWorkingDirectory)"
+        App_Packages_Directory: packages
+        Wap_Project_Directory_Upload: ASP.NET.packages.config
+        
+        App_Packages_Archive: ASP.NET.zip
+        # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
+        # PublishDir: "${{ github.workspace }}/publish"
+        PublishDir: "${{ github.workspace }}/publish"
+        PublishUrl: D:\Artifacts
+        
+  # ___________________________________________________________________________________________________________
 
-    - name: configure aws credentials
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-          role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
-          role-session-name: GitHub-Action-Role
-          aws-region: us-east-1
+    steps:        
+      - name: Checkout 🔗
+        uses: actions/checkout@v3
 
-    - name: Sync files to S3    
-      run: |
-        aws s3 sync ./${{ env.PublishUrl }} s3://my-github-action-bucket
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+            role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+            role-session-name: GitHub-Action-Role
+            aws-region: us-east-1
+
+      - name: Sync files to S3    
+        run: |
+          aws s3 sync ./${{ env.PublishUrl }} s3://my-github-action-bucket
 
 # ___________________________________________________________________________________________________________
 
