@@ -236,7 +236,8 @@ jobs:
 
       - name: Sync files to S3    
         run: |
-          aws s3 sync . s3://my-github-action-bucket
+          
+          aws s3 sync ${{ env.PublishDirectory }}  s3://my-github-action-bucket
 
 # ___________________________________________________________________________________________________________
 
