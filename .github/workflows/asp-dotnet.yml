@@ -138,8 +138,7 @@ jobs:
        # msbuild WebApplication.csproj /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default
       #  msbuild WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<FolderProfile>
       #  msbuild $env:Solution_Name /p:Configuration=Release /p:Platform="Any CPU" /t:Build /p:PublishDir=$env:PublishDir
-      
-       
+            
 # ___________________________________________________________________________________________________________
 
     # - name: Publish 📢
