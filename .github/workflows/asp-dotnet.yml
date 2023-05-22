@@ -197,6 +197,26 @@ jobs:
 
 
 # ___________________________________________________________________________________________________________
+
+# jobs:
+  # deploy:
+
+    - name: Deploy to AWS Elastic Beanstalk 🚀
+      uses: einaregilsson/beanstalk-deploy@v16
+      with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          application_name: "ASP.NET Application"
+          environment_name: "ASPNETApplication-env"
+          version_label: "v${{ github.run_number }}"
+          region: "us-east-1"
+          # deployment_package: "deploy.zip"
+          deployment_package: "s3://my-github-action-bucket/path/to/artifacts/ASP.NET.zip"
+
+    - name: Deployment done ✅
+      run: echo "The deployment was successful!" 
+      
+# ___________________________________________________________________________________________________________
   create-s3-deploy:
     name: Create Deploy
     needs: build
@@ -248,7 +268,8 @@ jobs:
 
 
 # ___________________________________________________________________________________________________________
-# create a deployment step for aws codepipeline using github actions
+# create a deployment step for aws elasticbeanstalk using github actions
+
 
 
 # ___________________________________________________________________________________________________________
@@ -378,22 +399,22 @@ jobs:
 
     #   #     zip -r deploy.zip . -x '*.git*'
 
-# jobs:
+# # jobs:
 #   deploy:
 
-    # - name: Deploy to AWS Elastic Beanstalk 🚀
-    #   uses: einaregilsson/beanstalk-deploy@v16
-    #   with:
-    #       aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #       aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #       application_name: "ASP.NET Application"
-    #       environment_name: "ASPNETApplication-env"
-    #       version_label: "v${{ github.run_number }}"
-    #       region: "us-east-1"
-    #       deployment_package: "deploy.zip"
+#     - name: Deploy to AWS Elastic Beanstalk 🚀
+#       uses: einaregilsson/beanstalk-deploy@v16
+#       with:
+#           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#           application_name: "ASP.NET Application"
+#           environment_name: "ASPNETApplication-env"
+#           version_label: "v${{ github.run_number }}"
+#           region: "us-east-1"
+#           deployment_package: "deploy.zip"
 
-    # - name: Deployment done ✅
-    #   run: echo "The deployment was successful!" 
+#     - name: Deployment done ✅
+#       run: echo "The deployment was successful!" 
 # ___________________________________________________________________________________________________________
 
 
