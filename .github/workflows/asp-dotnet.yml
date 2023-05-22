@@ -43,7 +43,7 @@ jobs:
       App_Packages_Directory: packages
       Wap_Project_Directory_Upload: ASP.NET.packages.config
 
-      App_Packages_Archive: ASP.NET.zip
+      App_Packages_Archive: AS-NET.zip
       # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
       # PublishDir: "${{ github.workspace }}/publish"
       PublishDir: "${{ github.workspace }}/publish"
