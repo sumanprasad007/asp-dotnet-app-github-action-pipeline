@@ -211,7 +211,7 @@ jobs:
           version_label: "v${{ github.run_number }}"
           region: "us-east-1"
           # deployment_package: "deploy.zip"
-          deployment_package: "s3://my-github-action-bucket/path/to/artifacts/ASP.NET.zip"
+          deployment_package: "*/ASP.NET.zip"
 
     - name: Deployment done ✅
       run: echo "The deployment was successful!" 
