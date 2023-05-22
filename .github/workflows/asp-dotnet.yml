@@ -197,6 +197,15 @@ jobs:
 
 
 # ___________________________________________________________________________________________________________
+    - name: Generate deployment package
+      run: |
+        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+      
+        choco install zip -y
+
+        zip -r deploy.zip . -x 's3://my-github-action-bucket/ASP.NET.zip'
+
+      #     zip -r deploy.zip . -x '*.git*'
 
 # jobs:
   # deploy:
@@ -210,8 +219,8 @@ jobs:
           environment_name: "ASPNETApplication-env"
           version_label: "v${{ github.run_number }}"
           region: "us-east-1"
-          # deployment_package: "deploy.zip"
-          deployment_package: "s3://my-github-action-bucket/ASP.NET.zip"
+          deployment_package: "deploy.zip"
+          # deployment_package: "s3://my-github-action-bucket/ASP.NET.zip"
           # deployment_package: "*/ASP.NET.zip"
 
     - name: Deployment done ✅
