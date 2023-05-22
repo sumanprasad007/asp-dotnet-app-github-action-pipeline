@@ -220,7 +220,7 @@ jobs:
           # environment_name: "ASPNETApplication-env"
           environment_name: "ASPNETApplication-env-1"
           # version_label: "v${{ github.run_number }}"
-          version_label: "v190"
+          version_label: "v191"
 
           region: "us-east-1"
           deployment_package: "deploy.zip"
