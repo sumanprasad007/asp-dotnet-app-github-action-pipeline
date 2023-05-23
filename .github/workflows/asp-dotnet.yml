@@ -203,13 +203,14 @@ jobs:
     #   run: |
     #       aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label <version-label> --source-bundle S3Bucket=<bucket-name>,S3Key=<key-name>
   
-    - name: Update Elastic Beanstalk environment
-      run: |
-          aws elasticbeanstalk describe-environments --environment-names ASPNETApplication-env-4
+    # - name: Update Elastic Beanstalk environment
+    #   run: |
 
-          aws elasticbeanstalk wait environment-ready --environment-names ASPNETApplication-env-4
+    #       aws elasticbeanstalk describe-environments --environment-names ASPNETApplication-env-4
 
-          aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-4 --version-label v20230523113544-1
+    #       aws elasticbeanstalk wait environment-ready --environment-names ASPNETApplication-env-4
+
+    #       aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-4 --version-label v20230523113544-1
 
 
     # - name: Deploy to Windows Server 🚀
