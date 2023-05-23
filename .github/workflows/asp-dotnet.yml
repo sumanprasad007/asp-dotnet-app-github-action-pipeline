@@ -168,49 +168,38 @@ jobs:
     # - name: Publish Project
     #   run: msbuild /t:Publish /p:Configuration=Release /p:PublishDir=./publish/
 # ___________________________________________________________________________________________________________
-
-    - name: Publish artifacts ☁
-      uses: actions/upload-artifact@v3.1.2
-      with:
-          name: Published Code
-          # path: ${{ env.Publish_Directory }}
-          # path: publish-asp.net
-          # path: $env:PublishPath
-          # path: ${{ env.PublishDir }}
-          path: ${{ env.PublishUrl }}
-          # path: d:\publish
-   
     - name: configure aws credentials 🔑
       uses: aws-actions/configure-aws-credentials@v2
       with:
-              aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-              aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      
-              # role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
-              # role-session-name: GitHub-Action-Role
-              aws-region: us-east-1
-    
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+        
+    - name: Publish artifacts ☁
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: Published Code
+        path: C:\inetpub\wwwroot\
+
+
     - name: Sync files to S3 🔄   
       run: |
+        aws s3 sync ${{ github.workspace }}/Published Code s3://my-github-action-bucket
 
-        aws s3 sync D:/Artifacts s3://my-github-action-bucket
-
-
-# ___________________________________________________________________________________________________________
     - name: Generate deployment package ☸
       run: |
         Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-      
         choco install zip -y
-
-        zip -r deploy.zip . -x 's3://my-github-action-bucket/ASP.NET.zip'
-
-      #     zip -r deploy.zip . -x '*.git*'
+        cd ${{ github.workspace }}
+        zip -r deploy.zip . -x 'deploy.zip'
 
     - name: Deploy to AWS Beanstalk 🚀 
       run: |
-        aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=ASP.NET.zip
+        aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=deploy.zip
         aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-2 --version-label v20230523075132
+
+
+# ___________________________________________________________________________________________________________
 
 
 # jobs:
