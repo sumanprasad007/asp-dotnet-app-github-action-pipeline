@@ -28,7 +28,6 @@ jobs:
         # targetPlatform: [x64]
         # ChannelName: [Dev]
 
-
     env:
       Solution_Name: ASP.NET.sln                          
 #       Test_Project_Path: your-test-project-path                 
