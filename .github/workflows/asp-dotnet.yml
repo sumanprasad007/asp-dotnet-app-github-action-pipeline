@@ -212,7 +212,6 @@ jobs:
           aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-4 --version-label v20230523113544-1
 
 
-
     # - name: Deploy to Windows Server 🚀
     #   run: |
     #       $securePassword = ConvertTo-SecureString -String ${{ secrets.SERVER_PASSWORD }} -AsPlainText -Force
