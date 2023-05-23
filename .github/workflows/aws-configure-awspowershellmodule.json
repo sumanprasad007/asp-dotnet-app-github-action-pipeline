@@ -1,0 +1,26 @@
+{
+    "schemaVersion": "2.2",
+    "description": "Install AWSPowerShell.NetCore module",
+    "parameters": {
+      "source": {
+        "type": "String",
+        "description": "The source of the module. Valid values are PSGallery or S3."
+      },
+      "installationType": {
+        "type": "String",
+        "description": "The installation type. Valid values are CurrentUser or AllUsers."
+      }
+    },
+    "mainSteps": [
+      {
+        "action": "aws:runPowerShellScript",
+        "name": "install-awspowershellmodule",
+        "inputs": {
+          "runCommand": [
+            "Install-Module -Name AWSPowerShell.NetCore -Force -Scope $installationType -Repository $source"
+          ]
+        }
+      }
+    ]
+  }
+  

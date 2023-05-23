@@ -197,16 +197,24 @@ jobs:
         aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=deploy.zip
         aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-2 --version-label v20230523075132
 
-    - name: Install SSM agent
-      run: |
-        aws ssm send-command --document-name "AWS-ConfigureAWSPowerShellModule" --instance-ids "i-0dc9a7885b126d604" --parameters "source=PSGallery,installationType=CurrentUser"
+    # - name: Deploy to Windows Server 🚀
+    #   run: |
+    #       $securePassword = ConvertTo-SecureString -String ${{ secrets.SERVER_PASSWORD }} -AsPlainText -Force
+    #       $credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ${{ secrets.SERVER_USERNAME }}, $securePassword
+    #       $session = New-PSSession -ComputerName 44.215.156.88 -Credential $credential
+    #       Copy-Item -Path ${{ github.workspace }} -Destination C:\inetpub\wwwroot\ -Recurse -Force -ToSession $session
+    #       Remove-PSSession -Session $session
+
+    # - name: Install SSM agent
+    #   run: |
+    #     aws ssm send-command --document-name "AWS-ConfigureAWSPowerShellModule" --instance-ids "i-0dc9a7885b126d604" --parameters "source=PSGallery,installationType=CurrentUser"
 
   
 
-    - name: Copy files to IIS directory
-      run: |
+    # - name: Copy files to IIS directory
+    #   run: |
 
-          aws ssm send-command --document-name "AWS-RunPowerShellScript" --instance-ids "i-0dc9a7885b126d604" --parameters commands="Copy-Item -Path C:\inetpub\wwwroot\* -Destination C:\inetpub\wwwroot\backup; Remove-Item -Path C:\inetpub\wwwroot\* -Recurse; Copy-Item -Path ./publish/* -Destination C:\inetpub\wwwroot\"
+    #       aws ssm send-command --document-name "AWS-RunPowerShellScript" --instance-ids "i-0dc9a7885b126d604" --parameters commands="Copy-Item -Path C:\inetpub\wwwroot\* -Destination C:\inetpub\wwwroot\backup; Remove-Item -Path C:\inetpub\wwwroot\* -Recurse; Copy-Item -Path ./publish/* -Destination C:\inetpub\wwwroot\"
 
 # ___________________________________________________________________________________________________________
 
