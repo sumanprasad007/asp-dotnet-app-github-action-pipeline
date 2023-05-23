@@ -197,7 +197,7 @@ jobs:
 
 
 # ___________________________________________________________________________________________________________
-    - name: Generate deployment package
+    - name: Generate deployment package 🚀
       run: |
         Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
       
@@ -210,7 +210,7 @@ jobs:
     - name: Deploy to AWS Beanstalk
       run: |
         aws elasticbeanstalk create-application-version --application-name ASP.NET Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=ASP.NET.zip
-        aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-1 --version-label v1
+        aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env --version-label v1
 
 
 # jobs:
