@@ -199,7 +199,8 @@ jobs:
 
     - name: Install SSM agent
       run: |
-          aws ssm send-command --document-name "AWS-InstallPowerShellModule" --instance-ids "i-0dc9a7885b126d604" --parameters commands="Install-Module -Name AWSPowerShell.NetCore -Force"
+        aws ssm send-command --document-name "AWS-ConfigureAWSPowerShellModule" --instance-ids "i-0dc9a7885b126d604" --parameters "source=PSGallery,installationType=CurrentUser"
+
   
 
     - name: Copy files to IIS directory
