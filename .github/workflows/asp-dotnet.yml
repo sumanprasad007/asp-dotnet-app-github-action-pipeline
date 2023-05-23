@@ -197,16 +197,22 @@ jobs:
         aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=deploy.zip
         aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-4 --version-label v20230523113544-1
 
+# --version-label "v${{ github.run_number }}"
+
     # - name: Create new application version in Elastic Beanstalk
     #   run: |
     #       aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label <version-label> --source-bundle S3Bucket=<bucket-name>,S3Key=<key-name>
   
     - name: Update Elastic Beanstalk environment
       run: |
+          aws elasticbeanstalk describe-environments --environment-names ASPNETApplication-env-4
+
+          aws elasticbeanstalk wait environment-ready --environment-names ASPNETApplication-env-4
+
           aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-4 --version-label v20230523113544-1
 
 
-          
+
     # - name: Deploy to Windows Server 🚀
     #   run: |
     #       $securePassword = ConvertTo-SecureString -String ${{ secrets.SERVER_PASSWORD }} -AsPlainText -Force
