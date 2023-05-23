@@ -196,7 +196,12 @@ jobs:
       run: |
         aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=deploy.zip
         aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-2 --version-label v20230523075132
-     
+
+    - name: Copy files to IIS directory
+      run: |
+
+          aws ssm send-command --document-name "AWS-RunPowerShellScript" --instance-ids "i-0dc9a7885b126d604" --parameters commands="Copy-Item -Path C:\inetpub\wwwroot\* -Destination C:\inetpub\wwwroot\backup; Remove-Item -Path C:\inetpub\wwwroot\* -Recurse; Copy-Item -Path ./publish/* -Destination C:\inetpub\wwwroot\"
+
 # ___________________________________________________________________________________________________________
 
 
