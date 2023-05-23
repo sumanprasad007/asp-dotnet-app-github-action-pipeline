@@ -183,7 +183,7 @@ jobs:
 
     - name: Copy files to S3 🔄   
       run: |
-        aws s3 cp --recursive ${{ github.workspace }}/Published\ Code s3://my-github-action-bucket/Published\ Code
+        aws s3 cp --recursive ${{ github.workspace }}/Published\ Code s3://my-github-action-bucket
 
     - name: Generate deployment package ☸
       run: |
