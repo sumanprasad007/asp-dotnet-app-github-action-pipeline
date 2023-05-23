@@ -207,6 +207,12 @@ jobs:
 
       #     zip -r deploy.zip . -x '*.git*'
 
+    - name: Deploy to AWS Beanstalk
+      run: |
+        aws elasticbeanstalk create-application-version --application-name ASP.NET Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=ASP.NET.zip
+        aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-1 --version-label v1
+
+
 # jobs:
   # deploy:
 
@@ -230,6 +236,8 @@ jobs:
     # - name: Deployment done ✅
     #   run: echo "The deployment was successful!" 
       
+
+
 # ___________________________________________________________________________________________________________
   create-s3-deploy:
     name: Create Deploy
