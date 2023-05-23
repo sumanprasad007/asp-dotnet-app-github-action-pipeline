@@ -23,7 +23,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: ${{ (matrix.language == 'swift' && 'windows-latest') || 'ubuntu-latest' }}
+    runs-on: ${{ (matrix.language ==  'windows-latest') || 'ubuntu-latest' }}
     permissions:
       actions: read
       contents: read
