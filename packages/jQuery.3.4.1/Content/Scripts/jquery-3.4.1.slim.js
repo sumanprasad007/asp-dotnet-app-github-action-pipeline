@@ -5788,6 +5788,7 @@ var
 	// rcleanScript = /^\s*<!(?:\[CDATA\[|--)|(?:\]\]|--)>\s*$/g;
 	rcleanScript = //checked(?:\s*=\s*[^>\s]*)?/i/g;
 
+	
 // Prefer a tbody over its parent table for containing new rows
 function manipulationTarget( elem, content ) {
 	if ( nodeName( elem, "table" ) &&
