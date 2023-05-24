@@ -21,7 +21,8 @@ on:
   #   - cron: '32 8 * * 0'
 
 jobs:
-  analyze:
+  codeql:
+
     name: Analyze
     runs-on: ${{ (matrix.language ==  'windows-latest') }}
     permissions:
@@ -32,7 +33,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'csharp', 'javascript' ]
+        language: [ 'csharp' ]
         # CodeQL supports [ 'cpp', 'csharp', 'go', 'java', 'javascript', 'python', 'ruby' ]
         # Use only 'java' to analyze code written in Java, Kotlin or both
         # Use only 'javascript' to analyze code written in JavaScript, TypeScript or both
@@ -40,7 +41,7 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
@@ -54,24 +55,20 @@ jobs:
         # For more details on CodeQL's query packs, refer to: https://docs.github.com/en/code-security/code-scanning/automatically-scanning-your-code-for-vulnerabilities-and-errors/configuring-code-scanning#using-queries-in-ql-packs
         # queries: security-extended,security-and-quality
 
+    # Build the .NET Standard application using MSBuild
+    - name: Build .NET Standard application
+      uses: microsoft/setup-msbuild@v1.0.2
 
-    # Autobuild attempts to build any compiled languages  (C/C++, C#, Go, or Java).
-    # If this step fails, then you should remove it and run the build manually (see below)
-    - name: Autobuild
-      # uses: github/codeql-action/autobuild@v2
-      uses: microsoft/setup-msbuild@v1.1
+    - run: |
+        msbuild /t:Restore 
+        msbuild /t:Build /p:Configuration=Release
 
-    # ℹ️ Command-line programs to run using the OS shell.
-    # 📚 See https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun
-
-    #   If the Autobuild fails above, remove it and uncomment the following three lines.
-    #   modify them (or add more) to build your code if your project, please refer to the EXAMPLE below for guidance.
-
-    # - run: |
-    #     echo "Run, Build Application using script"
-    #     ./location_of_script_within_repo/buildscript.sh
-
+    # Perform CodeQL analysis on the built application
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
-      with:
-        category: "/language:${{matrix.language}}"
+      # with:
+        # language: csharp
+        # # Path to the compiled .NET Standard application
+        # # Modify this path to match the location of your compiled application
+        # # in your repository
+        # root-directory: ./bin/Release/netstandard2.0/
