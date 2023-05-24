@@ -220,6 +220,15 @@ on 24th may 2023 - adding the build and publish step and removing unnecessary ne
 
 
 
+    - name: Zip published files
+      run: |
+        Compress-Archive -Path (Join-Path $env:PublishUrl "") -DestinationPath (Join-Path $env:PublishUrl "ASPNET.zip")
+
+    - name: Publish ☁
+      uses: actions/upload-artifact@v3.1.2
+      with:
+        name: Published Code
+        path: ${{ env.PublishUrl }}/ASPNET.zip
 
 
 # # ___________________________________________________________________________________________________________

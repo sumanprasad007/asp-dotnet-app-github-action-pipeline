@@ -149,7 +149,7 @@ jobs:
         
     - name: Zip published files
       run: |
-        Compress-Archive -Path (Join-Path $env:PublishUrl "*") -DestinationPath (Join-Path $env:PublishUrl "ASPNET.zip")
+        Compress-Archive -Path (Join-Path $env:PublishUrl "\_PublishedWebsites\ASP.NET") -DestinationPath (Join-Path $env:PublishUrl "ASPNET.zip")
 
     - name: Publish ☁
       uses: actions/upload-artifact@v3.1.2
@@ -169,7 +169,7 @@ jobs:
 
     - name: Copy files to S3 🔄   
       run: |
-        aws s3 sync ${{ env.PublishUrl }}\ASPNET.zip\_PublishedWebsites\ASP.NET s3://my-github-action-bucket
+        aws s3 sync ${{ env.PublishUrl }} s3://my-github-action-bucket
 
     - name: Generate deployment package ☸
       run: |
