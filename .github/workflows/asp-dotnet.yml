@@ -120,15 +120,31 @@ jobs:
 
 # # ___________________________________________________________________________________________________________
 
+    # - name: Build & Publish the application 📢
+    #   run: |
+    #     msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation=$env:PublishUrl
+
+    # - name: Publish artifacts ☁
+    #   uses: actions/upload-artifact@v3.1.2
+    #   with:
+    #     name: Published Code
+    #     path: ${{ env.PublishUrl }}
+
     - name: Build & Publish the application 📢
       run: |
-        msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation=$env:PublishUrl
-
+          msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl
+      
+    - name: Flatten folder structure
+      run: |
+          $sourcePath = Join-Path $env:PublishUrl "*\Content\D_C\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Debug\Package\PackageTmp"
+          Move-Item -Path (Join-Path $sourcePath "*") -Destination $env:PublishUrl -Force
+      
     - name: Publish artifacts ☁
       uses: actions/upload-artifact@v3.1.2
       with:
-        name: Published Code
-        path: ${{ env.PublishUrl }}
+          name: Published Code
+          path: ${{ env.PublishUrl }}
+      
 
 # # ___________________________________________________________________________________________________________
 
