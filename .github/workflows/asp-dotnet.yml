@@ -51,8 +51,8 @@ jobs:
       SOLUTION_PATH: ASP.NET.sln
 #       SONAR_HOST: 
 #       SONAR_PROJECT_KEY: 
-      SONAR_PROJECT_NAME: ASP.NET
-      SONAR_PROJECT_VERSION: 1.2.3
+      # SONAR_PROJECT_NAME: ASP.NET
+      # SONAR_PROJECT_VERSION: 1.2.3
 # ___________________________________________________________________________________________________________
       
     steps:
@@ -149,7 +149,7 @@ jobs:
         
     - name: Zip published files
       run: |
-        Compress-Archive -Path (Join-Path $env:PublishUrl "\_PublishedWebsites\ASP.NET") -DestinationPath (Join-Path $env:PublishUrl "ASPNET.zip")
+        Compress-Archive -Path (Join-Path $env:PublishUrl "\_PublishedWebsites\ASP.NET\") -DestinationPath (Join-Path $env:PublishUrl "ASPNET.zip")
 
     - name: Publish ☁
       uses: actions/upload-artifact@v3.1.2
@@ -178,10 +178,10 @@ jobs:
     #     cd ${{ github.workspace }}
     #     zip -r deploy.zip . -x 'deploy.zip'
 
-    - name: Deploy to AWS Beanstalk 🚀 
-      run: |
-        aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=ASPNET.zip
-        aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-1 --version-label v20230524111748
+    # - name: Deploy to AWS Beanstalk 🚀 
+    #   run: |
+    #     aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=ASPNET.zip
+    #     aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-1 --version-label v20230524111748-1
 
 
     # Bucket link:
