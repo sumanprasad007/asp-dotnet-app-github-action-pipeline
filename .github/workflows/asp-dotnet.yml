@@ -30,7 +30,7 @@ jobs:
 
     env:
       Solution_Name: ASP.NET.sln                          
-#       Test_Project_Path: your-test-project-path                 
+#       Test_Project_Path: "ASP.NET.Tests/ASP.NET.Tests.csproj"                 
       Wap_Project_Directory: ASP.NET    
       Csproj_Path: "ASP.NET/ASP.NET.csproj"                 
       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
@@ -48,9 +48,6 @@ jobs:
       PublishDir: "${{ github.workspace }}/publish"
       PublishUrl: C:\inetpub\wwwroot\
       
-    
-      # SONARSCANNER_RELEASE_DOWNLOADURL: https://github.com/SonarSource/sonar-scanner-msbuild/releases/download/5.3.1.36242/sonar-scanner-msbuild-5.3.1.36242-net46.zip
-
       SOLUTION_PATH: ASP.NET.sln
 #       SONAR_HOST: 
 #       SONAR_PROJECT_KEY: 
@@ -89,9 +86,12 @@ jobs:
       # uses: microsoft/setup-msbuild@v1.0.3
       uses: microsoft/setup-msbuild@v1.1
 
-    # Execute all unit tests in the solution
-#     - name: Execute unit tests
-#       run: dotnet test
+      # Execute all unit tests in the solution
+    # - name: Execute unit tests
+    #   run: dotnet test
+
+    # - name: Test
+    #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
 # ___________________________________________________________________________________________________________
     - name: Setup NuGet.exe for use with actions 
       uses: NuGet/setup-nuget@v1.2.0
@@ -101,77 +101,37 @@ jobs:
 
     - name: Restore the application 💥
       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-      # run: msbuild /p:Configuration=Release
-      # run: msbuild /p:Configuration=Release /t:Publish "Wap_Project_Path"
       env:
         Configuration: ${{ matrix.configuration }}
 
-    # - name: Test
-    #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
 # ___________________________________________________________________________________________________________
-    # - name: Lint code Base 🧹
-    #   # uses: github/super-linter@v3
-    #   uses: github/aur-actions-dotnet-lint@v1
-    #   with:
-    #     DEFAULT_BRANCH: main
-    #     linter: dotnet-format
-    #     options: --check
-      # Optional: define which github-actions you want to execute. Default: all github-actions are executed
-      # github-actions: eslint, markdownlint, phpstan, psscriptanalyzer, stylelint, hadolint, ansible-lint, yamllint, shellcheck, jsonlint, write-good
-      # Optional: define a specific github token to use for github api (otherwise a default is used)
-      # github_token: ${{ secrets.GITHUB_TOKEN }}
-# ___________________________________________________________________________________________________________
+
+#     - name: Build & Publish the application 📢
+#       run:  |
+
+#        msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl
+#       #  msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation=$env:PublishUrl
+
+#     - name: Publish artifacts ☁
+#       uses: actions/upload-artifact@v3.1.2
+#       with:
+#         name: Published Code
+#         path: ${{ env.PublishUrl }}
+
+# # ___________________________________________________________________________________________________________
 
     - name: Build & Publish the application 📢
-      run:  |
+      run: |
+        msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation=$env:PublishUrl
 
-       msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl
-      #  msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl="D:\deployedApp\newapp"
-
-      #  msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=MSDeploy /p:DeployIisAppPath=<IISSiteName> /p:PublishProfile=Default
-
-
-      #  msbuild WebApplication.csproj /p:DeployOnBuild=true /p:WebPublishMethod=MSDeploy /p:MSDeployServiceURL=<msdeployUrl> /p:DeployIisAppPath=<IISSiteName> /p:UserName=<username> /p:Password=<DeploymentPassword> /p:PublishProfile=Default
-
-      #  msbuild WebApplication.csproj /p:DeployOnBuild=true /p:PublishUrl="C:\deployedApp\newapp"
-       # msbuild WebApplication.csproj /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default
-      #  msbuild WebApplication.csproj /p:DeployOnBuild=true /p:PublishProfile=<FolderProfile>
-      #  msbuild $env:Solution_Name /p:Configuration=Release /p:Platform="Any CPU" /t:Build /p:PublishDir=$env:PublishDir
-            
-# ___________________________________________________________________________________________________________
-
-    # - name: Publish 📢
-    #   run: |
-    #     # msbuild $env:Solution_Name /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=\ ASP.NET/ASP.NET.csproj
-    #     msbuild $env:Solution_Name /p:Configuration=Release /p:PublishProfile=Publish /p:DeployOnBuild=true /p:PublishDir=\
-
-    # - name: Initialize CodeQL
-    #   uses: github/codeql-action/init@v2
-
-
-    # - name: Autobuild
-    #   uses: github/codeql-action/autobuild@v2
-
-
-    # - name: Perform CodeQL Analysis
-    #   uses: github/codeql-action/analyze@v2 
-
-# ___________________________________________________________________________________________________________
-
-    # -name: Upload artifact
-    #     uses: actions/upload-artifact@master
-    #     with:
-    #         name: ASP.NET
-    #         path: ${{ env.Publish_Directory }}
-
-    # - name: Publish Project
-    #   run: msbuild /t:Publish /p:Configuration=Release /p:PublishDir=./publish/
-# ___________________________________________________________________________________________________________
     - name: Publish artifacts ☁
       uses: actions/upload-artifact@v3.1.2
       with:
         name: Published Code
         path: ${{ env.PublishUrl }}
+
+# # ___________________________________________________________________________________________________________
+
 
     - name: configure aws credentials 🔑
       uses: aws-actions/configure-aws-credentials@v2
@@ -191,10 +151,10 @@ jobs:
         cd ${{ github.workspace }}
         zip -r deploy.zip . -x 'deploy.zip'
 
-    - name: Deploy to AWS Beanstalk 🚀 
-      run: |
-        aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=deploy.zip
-        aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-4 --version-label v20230523113544-1
+    # - name: Deploy to AWS Beanstalk 🚀 
+    #   run: |
+    #     aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=deploy.zip
+    #     aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-4 --version-label v20230523113544-1
 
 # --version-label "v${{ github.run_number }}"
 
@@ -329,20 +289,6 @@ jobs:
     #     nuget setapikey ${{ secrets.GITHUB_TOKEN }} -Source "github"
     #     nuget push <NAME_OF_YOUR_PACKAGE>.nupkg -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"  
 # ___________________________________________________________________________________________________________
-        
-    # - name: Download and Unzip SonarScanner
-    #   run: |
-    #       curl -L -o sonarscanner.zip ${{ env.SONARSCANNER_RELEASE_DOWNLOADURL }}
-    #       Expand-Archive -Path .\sonarscanner.zip -DestinationPath .\SonarScanner -Verbose
-
-  
-    # - name: Run SonarScanner
-    #   run: |
-    #     SonarScanner.MSBuild.exe begin /k:"${{ env.SONAR_PROJECT_KEY }}" /n:"${{ env.SONAR_PROJECT_NAME }}" /v:"${{ env.SONAR_PROJECT_VERSION }}" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="${{ env.SONAR_HOST }}"
-    #     MSBuild.exe "${{ env.SOLUTION_PATH }}" /t:Rebuild
-    #     SonarScanner.MSBuild.exe end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
-
- #___________________________________________________________________________________________________________    
 
     #  # Test downloading a single artifact
     # - name: Download artifact 
@@ -370,22 +316,6 @@ jobs:
     #         branch: move-artifact
     #         title: "Move artifact to root folder"
     #         body: "This pull request moves the artifact to the root folder."
-# ___________________________________________________________________________________________________________
-
-    #     # Upload the MSIX package: https://github.com/marketplace/actions/upload-artifact
-    # - name: Upload build artifacts
-    #   uses: actions/upload-artifact@v2
-    #   with:
-    #       name: MSIX Package
-    #       path: ${{ env.Wap_Project_Directory_Upload }}\${{ env.App_Packages_Directory }}
-
-    # - name: Deploy to AWS EC2
-    #    uses: aws-actions/aws-codedeploy-appspec-action@v1
-    #    env:
-    #       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #       APPLICATION_NAME: ASP.NET
-
 
 #  ___________________________________________________________________________________________________________
     # # Archive the package
