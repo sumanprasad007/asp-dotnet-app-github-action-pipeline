@@ -180,7 +180,8 @@ jobs:
 
     # - name: Deploy to AWS Beanstalk 🚀 
     #   run: |
-    #     aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=ASPNET.zip
+    #     aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v20230524111748-1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=ASPNET.zip
+    
     #     aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-1 --version-label v20230524111748-1
 
 
