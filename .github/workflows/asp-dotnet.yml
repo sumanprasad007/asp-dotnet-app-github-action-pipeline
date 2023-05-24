@@ -141,6 +141,26 @@ jobs:
     - name: Build & Publish the application 📢
       run: |
         msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:OutDir=$env:PublishUrl
+      
+    - name: Remove unnecessary files
+      run: |
+
+        Remove-Item -Path (Join-Path $env:PublishUrl ".pdb") -Force
+        Remove-Item -Path (Join-Path $env:PublishUrl ".xml") -Force
+        Remove-Item -Path (Join-Path $env:PublishUrl ".cmd") -Force
+        Remove-Item -Path (Join-Path $env:PublishUrl ".ps1") -Force
+        Remove-Item -Path (Join-Path:PublishUrl ".sh") -Force
+        Remove-Item -Path (Join-Path $env:PublishUrl ".txt") -Force
+        Remove-Item -Path (Join-Path $env:PublishUrl ".md") -Force
+        Remove-Item -Path (Join-Path $env:PublishUrl ".yml") -Force
+        Remove-Item -Path (Join-Path $env:PublishUrl ".json") -Force
+        Remove-Item -Path (Join-Path $env:PublishUrl ".nupkg") -Force
+        Remove-Item -Path (Join-Path $env:PublishUrl ".config") -Force    
+        Remove-Item -Path (Join-Path $env:PublishUrl "appsettings.Development.json") -Force
+        Remove-Item -Path (Join-Path $env:PublishUrl "appsettings.json") -Force
+        Remove-Item -Path (Join-Path $env:PublishUrl "webapp.zip") -Force
+        Remove-Item -Path (Join-Path $env:PublishUrl "ASP.NET_Packages") -Recurse -Force
+
 
     - name: Zip published files
       run: |
@@ -242,40 +262,41 @@ jobs:
 
 
 # ___________________________________________________________________________________________________________
-  create-s3-deploy:
-    name: Create Deploy
-    needs: build
-    runs-on: windows-latest
-    permissions:
-      contents: read
-      packages: write
-      
-  # ___________________________________________________________________________________________________________
-    env:
-        Solution_Name: ASP.NET.sln                          
-        #Test_Project_Path: your-test-project-path                 
-        Wap_Project_Directory: ASP.NET    
-        Csproj_Path: "ASP.NET/ASP.NET.csproj"                 
-        # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
-        Publish_Directory: "${{ github.workspace }}/publish"
-        # Publish_Directory: "${{ github.workspace }}\""
+  # create-s3-deploy:
+  #   name: Create Deploy
+  #   needs: build
+  #   runs-on: windows-latest
+  #   permissions:
+  #     contents: read
+  #     packages: write
+
+ # ___________________________________________________________________________________________________________
+  #   env:
+  #       Solution_Name: ASP.NET.sln                          
+  #       #Test_Project_Path: your-test-project-path                 
+  #       Wap_Project_Directory: ASP.NET    
+  #       Csproj_Path: "ASP.NET/ASP.NET.csproj"                 
+  #       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
+  #       Publish_Directory: "${{ github.workspace }}/publish"
+  #       # Publish_Directory: "${{ github.workspace }}\""
   
-        # PublishPath: "$(System.DefaultWorkingDirectory)"
-        App_Packages_Directory: packages
-        Wap_Project_Directory_Upload: ASP.NET.packages.config
+  #       # PublishPath: "$(System.DefaultWorkingDirectory)"
+  #       App_Packages_Directory: packages
+  #       Wap_Project_Directory_Upload: ASP.NET.packages.config
         
-        App_Packages_Archive: ASP.NET.zip
-        # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
-        # PublishDir: "${{ github.workspace }}/publish"
-        PublishDir: "${{ github.workspace }}/publish"
-        PublishUrl: D:\Artifacts
+  #       App_Packages_Archive: ASP.NET.zip
+  #       # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
+  #       # PublishDir: "${{ github.workspace }}/publish"
+  #       PublishDir: "${{ github.workspace }}/publish"
+  #       PublishUrl: D:\Artifacts
         
   # ___________________________________________________________________________________________________________
-
-    steps:        
-      - name: Checkout 🔗
-        uses: actions/checkout@v3
-
+  
+  #   steps:        
+  #     - name: Checkout 🔗
+  #       uses: actions/checkout@v3
+  
+  # ___________________________________________________________________________________________________________
       # - name: configure aws credentials 🔑
       #   uses: aws-actions/configure-aws-credentials@v2
       #   with:
