@@ -144,7 +144,7 @@ jobs:
 
     - name: Zip published files
       run: |
-        Compress-Archive -Path (Join-Path $env:PublishUrl "*") -DestinationPath (Join-Path $env:Url "ASPNET.zip")
+        Compress-Archive -Path (Join-Path $env:PublishUrl "*") -DestinationPath (Join-Path $env:PublishUrl "ASPNET.zip")
 
     - name: Publish ☁
       uses: actions/upload-artifact@v3.1.2
