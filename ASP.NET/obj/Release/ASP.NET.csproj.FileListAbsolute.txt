@@ -76,3 +76,4 @@ S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Rele
 S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Release\ASP.NET.csproj.CopyComplete
 S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Release\ASP.NET.dll
 S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Release\ASP.NET.pdb
+S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Release\ASP.NET.csproj.AssemblyReference.cache
