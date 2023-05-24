@@ -162,9 +162,6 @@ jobs:
         if (Test-Path (Join-Path $env:PublishUrl "appsettings.json")) { Remove-Item -Path (Join-Path $env:PublishUrl "appsettings.json") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "webapp.zip")) { Remove-Item -Path (Join-Path $env:PublishUrl "webapp.zip") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "ASP.NET_Packages")) { Remove-Item -Path (Join-Path $env:PublishUrl "ASP.NET_Packages") -Recurse -Force }
-        # if (Test-Path (Join-Path $env:PublishUrl "aspnet_client")) { Remove-Item -Path (Join-Path $env:PublishUrl "aspnet_client") -Recurse -Force }
-     
-
 
     - name: Zip published files
       run: |
