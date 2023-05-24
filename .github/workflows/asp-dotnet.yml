@@ -138,26 +138,19 @@ jobs:
   
 
 # # ___________________________________________________________________________________________________________
-
     - name: Build & Publish the application 📢
       run: |
         msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:OutDir=$env:PublishUrl
 
-    - name: Remove unwanted folders
+    - name: Zip published files
       run: |
-        $unwantedFolders = @("Content", "D_C", "a", "asp-dotnet-app-github-action-pipeline")
-        $unwantedFolders | ForEach-Object {
-          $folderPath = Join-Path $env:PublishUrl $_
-          if (Test-Path $folderPath) {
-            Remove-Item -Path $folderPath -Recurse -Force
-          }
-        }
+        Compress-Archive -Path (Join-Path $env:PublishUrl "*") -DestinationPath (Join-Path $env:Url "ASPNET.zip")
 
-    - name: Publish artifacts ☁
+    - name: Publish ☁
       uses: actions/upload-artifact@v3.1.2
       with:
         name: Published Code
-        path: ${{ env.PublishUrl }}
+        path: ${{ env.PublishUrl }}/ASPNET.zip
 
 # # ___________________________________________________________________________________________________________
 
