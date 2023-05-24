@@ -171,19 +171,24 @@ jobs:
       run: |
         aws s3 sync ${{ env.PublishUrl }} s3://my-github-action-bucket
 
-    - name: Generate deployment package ☸
-      run: |
-        Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-        choco install zip -y
-        cd ${{ github.workspace }}
-        zip -r deploy.zip . -x 'deploy.zip'
+    # - name: Generate deployment package ☸
+    #   run: |
+    #     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+    #     choco install zip -y
+    #     cd ${{ github.workspace }}
+    #     zip -r deploy.zip . -x 'deploy.zip'
 
     # - name: Deploy to AWS Beanstalk 🚀 
     #   run: |
     #     aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=deploy.zip
     #     aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-4 --version-label v20230523113544-1
 
-# --version-label "v${{ github.run_number }}"
+
+    # Bucket link:
+    #   s3://my-github-action-bucket/_PublishedWebsites/ASP.NET/
+
+
+    # --version-label "v${{ github.run_number }}"
 
     # - name: Create new application version in Elastic Beanstalk
     #   run: |
