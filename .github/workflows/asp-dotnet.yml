@@ -147,22 +147,22 @@ jobs:
 
         if (Test-Path (Join-Path $env:PublishUrl "web.config")) { Remove-Item -Path (Join-Path $env:PublishUrl "web.config") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "web.*.config")) { Remove-Item -Path (Join-Path $env:PublishUrl "web.*.config") -Force }
-        if (Test-Path (Join-Path $env:PublishUrl "*.pdb")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.pdb") -Force }
+        if (Test-Path (Join-Path $env:Url "*.pdb")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.pdb") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "*.")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.xml") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "*.cmd")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.cmd") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "*.ps1")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.ps1") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "*.sh")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.sh") -Force }
-        if (Test-Path (Join-Path $env:PublishUrl "*.txt")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.txt") -Force }
+        if (Test-Path (Join-Path $env:PublishUrl "*.")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.txt") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "*.md")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.md") -Force }
-        if (Test-Path (Join-Path $env:PublishUrl "*.yml")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.yml") -Force }
+        if (Test-Path (Join-Path $env:PublishUrl "*.yml")) { Remove-Item -Path (Join-Path $env:PublishUrlyml") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "*.json")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.json") -Force }
-        if (Test-Path (Join-Path $env:PublishUrl "*.nupkg")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.nupkg") - }
+        if (Test-Path (Join-Path $env:PublishUrl "*.nupkg")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.nupkg") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "*.config")) { Remove-Item -Path (Join-Path $env:PublishUrl "*.config") -Force }
-        if (Test-Path (Join-Path $env:PublishUrlappsettings.Development.json")) { Remove-Item -Path (Join-Path $env:PublishUrl "appsettings.Development.json") -Force }
+        if (Test-Path (Join-Path $env:PublishUrl "appsettings.Development.json")) { Remove-Item -Path (Join-Path $env:PublishUrl "appsettings.Development.json") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "appsettings.json")) { Remove-Item -Path (Join-Path $env:PublishUrl "appsettings.json") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "webapp.zip")) { Remove-Item -Path (Join-Path $env:PublishUrl "webapp.zip") -Force }
         if (Test-Path (Join-Path $env:PublishUrl "ASP.NET_Packages")) { Remove-Item -Path (Join-Path $env:PublishUrl "ASP.NET_Packages") -Recurse -Force }
-
+        
     - name: Zip published files
       run: |
         Compress-Archive -Path (Join-Path $env:PublishUrl "*") -DestinationPath (Join-Path $env:PublishUrl "ASPNET.zip")
