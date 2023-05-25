@@ -15,12 +15,12 @@ jobs:
       uses: actions/checkout@v2
 
     - name: Initialize CodeQL
-      uses: github/codeql-action/init@v1
+      uses: github/codeql-action/init@v2
       with:
         languages: csharp
 
     - name: Analyze code with CodeQL
-      uses: github/codeql-action/analyze@v1
+      uses: github/codeql-action/analyze@v2
       with:
         # Path to the CodeQL database
         database-path: codeql-database
