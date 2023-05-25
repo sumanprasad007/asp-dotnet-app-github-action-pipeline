@@ -1,10 +1,12 @@
 name: Merge Dependabot PRs
 
 on:
-  schedule:
-    # - cron: '0 0 * * *'
-    - cron: '* * * * *'
-
+  # schedule:
+  #   # - cron: '0 0 * * *'
+  #   - cron: '* * * * *'
+  push:
+    branches: [ "main" ]
+    
 jobs:
   merge:
     runs-on: ubuntu-latest
