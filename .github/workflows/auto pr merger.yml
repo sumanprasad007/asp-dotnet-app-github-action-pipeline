@@ -1,11 +1,12 @@
-name: Merge Pull Requests
+name: Merge Pull Requests 
+# Using shell script we pull the open PR and merge them using PAT token
 
 on:
-  # schedule:
-  #   - cron: '0 0 * * *' # every day at midnight
+  schedule:
+    - cron: '0 0 * * *' # every day at midnight
 
-  push:
-    branches: [ "main" ]
+  # push:
+  #   branches: [ "main" ]
 
 jobs:
   merge-pull-requests:
