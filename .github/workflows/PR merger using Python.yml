@@ -24,4 +24,4 @@ jobs:
       - name: Merge pull requests
         env:
           PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
-        run: python merge_pull_requests.py
+        run: .github/worflows/python merge_pull_requests.py
