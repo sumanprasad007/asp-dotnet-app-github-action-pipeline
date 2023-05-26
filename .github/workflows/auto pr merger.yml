@@ -2,11 +2,11 @@ name: Merge Pull Requests
 # Using shell script we pull the open PR and merge them using PAT token
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # every day at midnight
+  # schedule:
+  #   - cron: '0 0 * * *' # every day at midnight
 
-  # push:
-  #   branches: [ "main" ]
+  push:
+    branches: [ "main" ]
 
 jobs:
   merge-pull-requests:
@@ -22,3 +22,16 @@ jobs:
           for pr in $(curl -s -H "Authorization: Bearer ${{ secrets.PAT_TOKEN }}" https://api.github.com/repos/sumanprasad007/asp-dotnet-app-github-action-pipeline/pulls\?state\=open\&head\=dependabot | jq -r '.[] | .number'); do
             curl -s -H "Authorization: Bearer ${{ secrets.PAT_TOKEN }}" -X PUT https://api.github.com/repos/sumanprasad007/asp-dotnet-app-github-action-pipeline/pulls/$pr/merge
           done
+
+# This loop does the following:
+
+# 1. Uses `curl` to make a GET request to the GitHub API to get a list of open pull requests created by Dependabot in the `sumanprasad007/asp-dotnet-app-github-action-pipeline` repository. The `-s` option is used to suppress the progress meter and other non-error messages, and the `-H` option is used to pass the Personal Access Token (PAT) as an authorization header.
+
+# 2. Pipes the output of the `curl` command to `jq`, which is a command-line JSON processor. The `.[] | .number` filter is used to extract the number of each open pull request and output it as a separate line.
+
+# 3. Uses a `for` loop to iterate over each line of output from the `curl` and `jq` commands. The `pr` variable is set to the number of the current pull request.
+
+# 4. Uses `curl` to make a PUT request to the GitHub API to merge the current pull request. The `-s` option is used to suppress the progress meter and other non-error messages, and the `-H` option is used to pass the PAT as an authorization header. The URL of the API endpoint is constructed using the owner and repository name (`sumanprasad007/asp-dotnet-app-github-action-pipeline`) and the number of the current pull request (`$pr`).
+
+# In summary, this loop gets a list of open pull requests created by Dependabot in the specified repository, and then merges each pull request one by one using the GitHub API. 
+
