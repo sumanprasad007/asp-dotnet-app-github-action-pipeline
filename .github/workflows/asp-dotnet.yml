@@ -183,6 +183,15 @@ jobs:
     
     #     aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-1 --version-label v20230524111748-1
 
+    #-----------------------------------------------------------------------------------------------------------
+    - name: Install truffleHog
+      run: pip install truffleHog
+
+    - name: Scan for secrets
+      run: trufflehog --regex --entropy=False ${{ github.event.pull_request.head.repo.clone_url }} || true
+
+
+    #-----------------------------------------------------------------------------------------------------------
 
     # Bucket link:
     #   s3://my-github-action-bucket/_PublishedWebsites/ASP.NET/
