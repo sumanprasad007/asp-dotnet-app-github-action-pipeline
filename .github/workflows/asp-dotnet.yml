@@ -142,8 +142,10 @@ jobs:
 
     - name: Test
         #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
-      run: msbuild /t:Test /p:Configuration=Release "ASP.NET.Tests/ASP.NET.Tests.csproj" 
-      
+      run: |
+          msbuild /t:Test /p:Configuration=Release "ASP.NET.Tests\ASP.NET.Tests.csproj" 
+          vstest.console bin\Debug\ASP.NET.Tests\ASP.NET.Tests.dll
+
     - name: Remove unnecessary files
       run: |
 
