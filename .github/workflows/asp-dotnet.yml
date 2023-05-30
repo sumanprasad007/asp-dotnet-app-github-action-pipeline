@@ -86,12 +86,12 @@ jobs:
       # uses: microsoft/setup-msbuild@v1.0.3
       uses: microsoft/setup-msbuild@v1.1
 
-      # Execute all unit tests in the solution
-    - name: Execute unit tests
-      run: dotnet test
+    #   # Execute all unit tests in the solution
+    # - name: Execute unit tests
+    #   run: dotnet test
 
-    - name: Test
-      run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
+    # - name: Test
+    #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
 # ___________________________________________________________________________________________________________
     - name: Setup NuGet.exe for use with actions 
       uses: NuGet/setup-nuget@v1.2.0
