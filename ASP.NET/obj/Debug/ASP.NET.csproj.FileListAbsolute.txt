@@ -151,7 +151,6 @@ S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\bin\Syst
 S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\bin\Newtonsoft.Json.xml
 S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\bin\Antlr3.Runtime.pdb
 S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Debug\ASP.NET.csproj.AssemblyReference.cache
 S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Debug\ASP.NET.csproj.CoreCompileInputs.cache
 S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Debug\ASP.NET.csproj.CopyComplete
 S:\.NET Projects\may 2023\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Debug\ASP.NET.dll
