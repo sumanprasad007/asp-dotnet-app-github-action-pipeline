@@ -144,7 +144,7 @@ jobs:
         #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
       run: |
           
-          msbuild /t:Test /p:Configuration.exe "ASP.NET.Tests/bin=Release /test:MyTests.TestMethod YourProjectName.csproj
+          msbuild /t:Test /p:Configuration.exe ASP.NET.Tests/bin=Release /test:MyTests.TestMethod YourProjectName.csproj
           $vsTestPath = (Get-Item -Path "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe")
 
           $vsTestPath "ASP.NET.Tests/bin/Release/netstandard2.0/ASP.NET.Tests.dll"
