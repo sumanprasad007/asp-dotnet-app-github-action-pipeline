@@ -142,7 +142,7 @@ jobs:
 
     - name: Test
         #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
-      run: msbuild /t:Test /p:Configuration=Release "ASP.NET.Tests/ASP.NET.Tests.csproj" --verbosity normal --no-restore --no-build
+      run: msbuild /t:Test /p:Configuration=Release "ASP.NET.Tests/ASP.NET.Tests.csproj" --no-restore --no-build
           
     - name: Remove unnecessary files
       run: |
