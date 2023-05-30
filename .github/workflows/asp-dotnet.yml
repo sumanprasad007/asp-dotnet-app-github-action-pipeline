@@ -143,7 +143,9 @@ jobs:
     - name: Test
         #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
       run: |
-          msbuild /t:Test /p:Configuration=Release "ASP.NET.Tests\ASP.NET.Tests.csproj" 
+          
+          msbuild /t:Test /p:Configuration.exe "ASP.NET.Tests/bin=Release /test:MyTests.TestMethod YourProjectName.csproj
+          $vsTestPath = (Get-Item -Path "C:\Program Files (x86)\
           vstest.console bin\Debug\ASP.NET.Tests\ASP.NET.Tests.dll
 
     - name: Remove unnecessary files
