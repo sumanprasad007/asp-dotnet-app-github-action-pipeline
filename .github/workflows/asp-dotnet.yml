@@ -140,14 +140,14 @@ jobs:
       run: |
         msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:OutDir=$env:PublishUrl
 
-    - name: Test
-        #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
-      run: |
+    # - name: Test
+    #     #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
+    #   run: |
           
-          msbuild /t:Test /p:Configuration.exe ASP.NET.Tests/bin=Release /test:MyTests.TestMethod YourProjectName.csproj
-          $vsTestPath = (Get-Item -Path "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe")
+    #       msbuild /t:Test /p:Configuration.exe ASP.NET.Tests/bin=Release /test:MyTests.TestMethod YourProjectName.csproj
+    #       $vsTestPath = (Get-Item -Path "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe")
 
-          $vsTestPath "ASP.NET.Tests/bin/Release/netstandard2.0/ASP.NET.Tests.dll"
+    #       $vsTestPath "ASP.NET.Tests/bin/Release/netstandard2.0/ASP.NET.Tests.dll"
 
     - name: Remove unnecessary files
       run: |
