@@ -203,7 +203,6 @@ jobs:
     # Bucket link:
     #   s3://my-github-action-bucket/_PublishedWebsites/ASP.NET/
 
-
     # --version-label "v${{ github.run_number }}"
 
     # - name: Create new application version in Elastic Beanstalk
