@@ -309,8 +309,6 @@ jobs:
       #   run: |
           
       #     aws s3 sync D:/Artifacts s3://my-github-action-bucket
-
-
 # ___________________________________________________________________________________________________________
 # create a deployment step for aws elasticbeanstalk using github actions
 
