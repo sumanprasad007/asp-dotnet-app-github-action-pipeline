@@ -293,11 +293,7 @@ jobs:
   #       PublishUrl: D:\Artifacts
         
   # ___________________________________________________________________________________________________________
-  
-  #   steps:        
-  #     - name: Checkout 🔗
-  #       uses: actions/checkout@v3
-  
+
   # ___________________________________________________________________________________________________________
       # - name: configure aws credentials 🔑
       #   uses: aws-actions/configure-aws-credentials@v2
