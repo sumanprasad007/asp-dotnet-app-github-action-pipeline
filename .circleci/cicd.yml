@@ -1,0 +1,109 @@
+
+# convert the below github action workflow into circle ci .yml file "
+# name: GitHub-Pipeline for .NET 👩‍💻
+
+# on:
+#   push:
+#     branches: [ "main" ]
+#   pull_request:
+#     branches: [ "main" ]
+
+# # defaults:
+# #   run:
+# #     working-directory: frontend  
+# jobs:
+
+#   build:
+
+#     runs-on: windows-latest  
+#     # runs-on: self-hosted
+#     # runs-on: $ {{ matrix.os }}
+
+#     strategy:
+#       matrix:
+#         configuration: [Release]
+#         # os: [windows-latest, ubuntu-latest]
+#         # os: [windows-latest]
+#         # dotnet-version: [6.0.x]
+#         # channel: [Dev]
+#         # targetPlatform: [x64]
+#         # ChannelName: [Dev]
+
+#     env:
+#       Solution_Name: ASP.NET.sln                          
+#       Test_Project_Path: "ASP.NET.Tests/ASP.NET.Tests.csproj"                 
+#       Wap_Project_Directory: ASP.NET    
+#       Csproj_Path: "ASP.NET/ASP.NET.csproj"                 
+#       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
+#       Publish_Directory: "${{ github.workspace }}/publish"
+#       # Publish_Directory: "${{ github.workspace }}\""
+
+# # ___________________________________________________________________________________________________________
+#       # PublishPath: "$(System.DefaultWorkingDirectory)"
+#       App_Packages_Directory: packages
+#       Wap_Project_Directory_Upload: ASP.NET.packages.config
+
+#       App_Packages_Archive: AS-NET.zip
+#       # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
+#       # PublishDir: "${{ github.workspace }}/publish"
+#       PublishDir: "${{ github.workspace }}/publish"
+#       PublishUrl: C:\inetpub\wwwroot\
+      
+#       SOLUTION_PATH: ASP.NET.sln
+      
+#     steps:
+#     - name: Checkout 🔗
+#       uses: actions/checkout@v3
+#       with:
+#         fetch-depth: 0
+        
+#     - name: Setup NuGet.exe for use with actions 
+#       uses: NuGet/setup-nuget@v1.2.0
+
+#     - name: Restore NuGet Packages 📚
+#       run: nuget restore ASP.NET.sln
+
+#     - name: Restore the application 💥
+#       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+#       env:
+#         Configuration: ${{ matrix.configuration }}
+
+# # ___________________________________________________________________________________________________________
+#     - name: Build & Publish the application 📢
+#       run: |
+#         msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:OutDir=$env:PublishUrl
+
+#     - name: Remove unnecessary files
+#       run: |
+
+#         if (Test-Path (Join-Path $env:PublishUrl "ASP.NET_Packages")) { Remove-Item -Path (Join-Path $env:PublishUrl "ASP.NET_Packages") -Recurse -Force }
+        
+#     - name: Zip published files
+#       run: |
+#         Compress-Archive -Path (Join-Path $env:PublishUrl "\_PublishedWebsites\ASP.NET\") -DestinationPath (Join-Path $env:PublishUrl "ASPNET.zip")
+
+#     - name: Publish ☁
+#       uses: actions/upload-artifact@v3.1.2
+#       with:
+#         name: Published Code
+#         path: ${{ env.PublishUrl }}/ASPNET.zip
+
+# # # ___________________________________________________________________________________________________________
+
+#     - name: configure aws credentials 🔑
+#       uses: aws-actions/configure-aws-credentials@v2
+#       with:
+#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#         aws-region: us-east-1
+
+#     - name: Copy files to S3 🔄   
+#       run: |
+#           aws s3 cp ${{ env.PublishUrl }}/ASPNET.zip s3://my-github-action-bucket
+
+
+#     # - name: Deploy to AWS Beanstalk 🚀 
+#     #   run: |
+#     #     aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v20230524111748-1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=ASPNET.zip
+    
+#     #     aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-1 --version-label v20230524111748-1
