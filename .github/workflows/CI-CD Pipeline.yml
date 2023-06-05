@@ -1,0 +1,77 @@
+name: GitHub-Pipeline for .NET
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    env:
+      Solution_Name: ASP.NET.sln
+      Test_Project_Path: "ASP.NET.Tests/ASP.NET.Tests.csproj"
+      Wap_Project_Directory: ASP.NET
+      Csproj_Path: "ASP.NET/ASP.NET.csproj"
+      Publish_Directory: "${{ github.workspace }}/publish"
+      App_Packages_Directory: packages
+      Wap_Project_Directory_Upload: ASP.NET.packages.config
+      App_Packages_Archive: AS-NET.zip
+      PublishDir: "${{ github.workspace }}/publish"
+      PublishUrl: C:\inetpub\wwwroot\
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.4.2
+      with:
+        fetch-depth: 0
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Setup NuGet.exe for use with actions
+      uses: NuGet/setup-nuget@v1.2.0
+
+    - name: Restore NuGet Packages
+      run: nuget restore ASP.NET.sln
+
+    - name: Restore the application
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    - name: Build & Publish the application
+      run: |
+        msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:OutDir=$env:PublishUrl
+
+    - name: Remove unnecessary files
+      run: |
+        if (Test-Path (Join-Path $env:PublishUrl "ASP.NET_Packages")) { Remove-Item -Path (Join-Path $env:PublishUrl "ASP.NET_Packages") -Recurse -Force }
+
+    - name: Zip published files
+      run: |
+        Compress-Archive -Path (Join-Path $env:PublishUrl "\_PublishedWebsites\ASP.NET\") -DestinationPath (Join-Path $env:PublishUrl "ASPNET.zip")
+
+    - name: Publish
+      uses: actions/upload-artifact@v3
+      with:
+        name: Published Code
+        path: ${{ env.PublishUrl }}/ASPNET.zip
+
+    - name: configure aws credentials
+      uses: aws-actions/configure-aws-credentials@v1.6.0
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Copy files to S3
+      run: |
+          aws s3 cp ${{ env.PublishUrl }}/ASPNET.zip s3://my-github-action-bucket
+    # - name: Deploy to AWS Beanstalk 🚀 
+    #   run: |
+    #     aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v20230524111748-1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=ASPNET.zip
+    
+    #     aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-1 --version-label v20230524111748-1

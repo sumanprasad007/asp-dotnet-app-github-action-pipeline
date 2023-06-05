@@ -18,439 +18,439 @@ jobs:
     # runs-on: self-hosted
     # runs-on: $ {{ matrix.os }}
 
-    strategy:
-      matrix:
-        configuration: [Release]
-        # os: [windows-latest, ubuntu-latest]
-        # os: [windows-latest]
-        # dotnet-version: [6.0.x]
-        # channel: [Dev]
-        # targetPlatform: [x64]
-        # ChannelName: [Dev]
+#     strategy:
+#       matrix:
+#         configuration: [Release]
+#         # os: [windows-latest, ubuntu-latest]
+#         # os: [windows-latest]
+#         # dotnet-version: [6.0.x]
+#         # channel: [Dev]
+#         # targetPlatform: [x64]
+#         # ChannelName: [Dev]
 
-    env:
-      Solution_Name: ASP.NET.sln                          
-      Test_Project_Path: "ASP.NET.Tests/ASP.NET.Tests.csproj"                 
-      Wap_Project_Directory: ASP.NET    
-      Csproj_Path: "ASP.NET/ASP.NET.csproj"                 
-      # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
-      Publish_Directory: "${{ github.workspace }}/publish"
-      # Publish_Directory: "${{ github.workspace }}\""
-# ___________________________________________________________________________________________________________
-      # PublishPath: "$(System.DefaultWorkingDirectory)"
-      App_Packages_Directory: packages
-      Wap_Project_Directory_Upload: ASP.NET.packages.config
+#     env:
+#       Solution_Name: ASP.NET.sln                          
+#       Test_Project_Path: "ASP.NET.Tests/ASP.NET.Tests.csproj"                 
+#       Wap_Project_Directory: ASP.NET    
+#       Csproj_Path: "ASP.NET/ASP.NET.csproj"                 
+#       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
+#       Publish_Directory: "${{ github.workspace }}/publish"
+#       # Publish_Directory: "${{ github.workspace }}\""
+# # ___________________________________________________________________________________________________________
+#       # PublishPath: "$(System.DefaultWorkingDirectory)"
+#       App_Packages_Directory: packages
+#       Wap_Project_Directory_Upload: ASP.NET.packages.config
 
-      App_Packages_Archive: AS-NET.zip
-      # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
-      # PublishDir: "${{ github.workspace }}/publish"
-      PublishDir: "${{ github.workspace }}/publish"
-      PublishUrl: C:\inetpub\wwwroot\
+#       App_Packages_Archive: AS-NET.zip
+#       # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
+#       # PublishDir: "${{ github.workspace }}/publish"
+#       PublishDir: "${{ github.workspace }}/publish"
+#       PublishUrl: C:\inetpub\wwwroot\
       
-      SOLUTION_PATH: ASP.NET.sln
-#       SONAR_HOST: 
-#       SONAR_PROJECT_KEY: 
-      # SONAR_PROJECT_NAME: ASP.NET
-      # SONAR_PROJECT_VERSION: 1.2.3
-# ___________________________________________________________________________________________________________
+#       SOLUTION_PATH: ASP.NET.sln
+# #       SONAR_HOST: 
+# #       SONAR_PROJECT_KEY: 
+#       # SONAR_PROJECT_NAME: ASP.NET
+#       # SONAR_PROJECT_VERSION: 1.2.3
+# # ___________________________________________________________________________________________________________
       
-    steps:
-    - name: Checkout 🔗
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+#     steps:
+#     - name: Checkout 🔗
+#       uses: actions/checkout@v3
+#       with:
+#         fetch-depth: 0
         
-# --------------------------------------------------------------------------------------------------------------
-    # - name: Cache dependencies
-    #   id: cache-dotnet
-    #   uses: actions/cache@v2
-    #   with:
-    #     path: ${{ env.USERPROFILE }}\.nuget\packages
-    #     key: ${{ runner.os }}-dotnet-${{ hashFiles('**/ASP.NET.sln') }}
+# # --------------------------------------------------------------------------------------------------------------
+#     # - name: Cache dependencies
+#     #   id: cache-dotnet
+#     #   uses: actions/cache@v2
+#     #   with:
+#     #     path: ${{ env.USERPROFILE }}\.nuget\packages
+#     #     key: ${{ runner.os }}-dotnet-${{ hashFiles('**/ASP.NET.sln') }}
 
-    # - name: Install .NET SDK ☸
-    #   uses: actions/setup-dotnet@v1
-    #   with:
-    #     dotnet-version: 7.0.x
-# --------------------------------------------------------------------------------------------------------------
+#     # - name: Install .NET SDK ☸
+#     #   uses: actions/setup-dotnet@v1
+#     #   with:
+#     #     dotnet-version: 7.0.x
+# # --------------------------------------------------------------------------------------------------------------
 
-    # # Install the .NET Core workload
-    # - name: Install .NET Framework ☸
-    #   uses: actions/setup-dotnet@v3
-    #   with:
-    #     dotnet-version: 7.0.x
+#     # # Install the .NET Core workload
+#     # - name: Install .NET Framework ☸
+#     #   uses: actions/setup-dotnet@v3
+#     #   with:
+#     #     dotnet-version: 7.0.x
 
-    - name: Setup MSBuild.exe 🏗
-      # uses: microsoft/setup-msbuild@v1.0.2
-      # uses: microsoft/setup-msbuild@v1.0.3
-      uses: microsoft/setup-msbuild@v1.1
+#     - name: Setup MSBuild.exe 🏗
+#       # uses: microsoft/setup-msbuild@v1.0.2
+#       # uses: microsoft/setup-msbuild@v1.0.3
+#       uses: microsoft/setup-msbuild@v1.1
 
-    #   # Execute all unit tests in the solution
-    # - name: Execute unit tests
-    #   run: dotnet test
+#     #   # Execute all unit tests in the solution
+#     # - name: Execute unit tests
+#     #   run: dotnet test
 
-    # - name: Test
-    #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
-# ___________________________________________________________________________________________________________
-    - name: Setup NuGet.exe for use with actions 
-      uses: NuGet/setup-nuget@v1.2.0
+#     # - name: Test
+#     #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
+# # ___________________________________________________________________________________________________________
+#     - name: Setup NuGet.exe for use with actions 
+#       uses: NuGet/setup-nuget@v1.2.0
 
-    - name: Restore NuGet Packages 📚
-      run: nuget restore ASP.NET.sln
+#     - name: Restore NuGet Packages 📚
+#       run: nuget restore ASP.NET.sln
 
-    - name: Restore the application 💥
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-      env:
-        Configuration: ${{ matrix.configuration }}
+#     - name: Restore the application 💥
+#       run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+#       env:
+#         Configuration: ${{ matrix.configuration }}
 
-# ___________________________________________________________________________________________________________
+# # ___________________________________________________________________________________________________________
 
+# #     - name: Build & Publish the application 📢
+# #       run:  |
+
+# #        msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl
+# #       #  msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation=$env:PublishUrl
+
+# #     - name: Publish artifacts ☁
+# #       uses: actions/upload-artifact@v3.1.2
+# #       with:
+# #         name: Published Code
+# #         path: ${{ env.PublishUrl }}
+
+# # # ___________________________________________________________________________________________________________
+
+# # - name: Build & Publish the application 📢
+# #   run: |
+# #     msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation=$env:PublishUrl
+
+# # - name: Flatten folder structure
+# #   run: |
+# #       $sourcePath = Join-Path $env:PublishUrl "*\Content\D_C\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Debug\Package\PackageTmp"
+# #       Move-Item -Path (Join-Path $sourcePath "*") -Destination $env:PublishUrl -Force
+
+# # - name: Publish artifacts ☁
+#     #   uses: actions/upload-artifact@v3.1.2
+#     #   with:
+#     #     name: Published Code
+#     #     path: ${{ env.PublishUrl }}
+
+# # # ___________________________________________________________________________________________________________
 #     - name: Build & Publish the application 📢
-#       run:  |
+#       run: |
+#         msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:OutDir=$env:PublishUrl
 
-#        msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl
-#       #  msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation=$env:PublishUrl
+#     # - name: Test
+#     #     #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
+#     #   run: |
+          
+#     #       msbuild /t:Test /p:Configuration.exe ASP.NET.Tests/bin=Release /test:MyTests.TestMethod YourProjectName.csproj
+#     #       $vsTestPath = (Get-Item -Path "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe")
 
-#     - name: Publish artifacts ☁
+#     #       $vsTestPath "ASP.NET.Tests/bin/Release/netstandard2.0/ASP.NET.Tests.dll"
+
+#     - name: Remove unnecessary files
+#       run: |
+
+#         if (Test-Path (Join-Path $env:PublishUrl "ASP.NET_Packages")) { Remove-Item -Path (Join-Path $env:PublishUrl "ASP.NET_Packages") -Recurse -Force }
+        
+#     - name: Zip published files
+#       run: |
+#         Compress-Archive -Path (Join-Path $env:PublishUrl "\_PublishedWebsites\ASP.NET\") -DestinationPath (Join-Path $env:PublishUrl "ASPNET.zip")
+
+#     - name: Publish ☁
 #       uses: actions/upload-artifact@v3.1.2
 #       with:
 #         name: Published Code
-#         path: ${{ env.PublishUrl }}
+#         path: ${{ env.PublishUrl }}/ASPNET.zip
 
-# # ___________________________________________________________________________________________________________
+# # # ___________________________________________________________________________________________________________
 
-# - name: Build & Publish the application 📢
-#   run: |
-#     msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:PublishUrl=$env:PublishUrl /p:PackageAsSingleFile=true /p:SkipInvalidConfigurations=true /p:PackageLocation=$env:PublishUrl
+#     - name: configure aws credentials 🔑
+#       uses: aws-actions/configure-aws-credentials@v2
+#       with:
+#         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#         aws-region: us-east-1
 
-# - name: Flatten folder structure
-#   run: |
-#       $sourcePath = Join-Path $env:PublishUrl "*\Content\D_C\a\asp-dotnet-app-github-action-pipeline\asp-dotnet-app-github-action-pipeline\ASP.NET\obj\Debug\Package\PackageTmp"
-#       Move-Item -Path (Join-Path $sourcePath "*") -Destination $env:PublishUrl -Force
+#     - name: Copy files to S3 🔄   
+#       run: |
+#           aws s3 cp ${{ env.PublishUrl }}/ASPNET.zip s3://my-github-action-bucket
 
-# - name: Publish artifacts ☁
-    #   uses: actions/upload-artifact@v3.1.2
-    #   with:
-    #     name: Published Code
-    #     path: ${{ env.PublishUrl }}
+#     # - name: Generate deployment package ☸
+#     #   run: |
+#     #     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+#     #     choco install zip -y
+#     #     cd ${{ github.workspace }}
+#     #     zip -r deploy.zip . -x 'deploy.zip'
 
-# # ___________________________________________________________________________________________________________
-    - name: Build & Publish the application 📢
-      run: |
-        msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:OutDir=$env:PublishUrl
-
-    # - name: Test
-    #     #   run: dotnet test "${{ github.workspace }}/ASP.NET/ASP.NET.csproj" --no-build --verbosity normal
-    #   run: |
-          
-    #       msbuild /t:Test /p:Configuration.exe ASP.NET.Tests/bin=Release /test:MyTests.TestMethod YourProjectName.csproj
-    #       $vsTestPath = (Get-Item -Path "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\Common7\IDE\Extensions\TestPlatform\vstest.console.exe")
-
-    #       $vsTestPath "ASP.NET.Tests/bin/Release/netstandard2.0/ASP.NET.Tests.dll"
-
-    - name: Remove unnecessary files
-      run: |
-
-        if (Test-Path (Join-Path $env:PublishUrl "ASP.NET_Packages")) { Remove-Item -Path (Join-Path $env:PublishUrl "ASP.NET_Packages") -Recurse -Force }
-        
-    - name: Zip published files
-      run: |
-        Compress-Archive -Path (Join-Path $env:PublishUrl "\_PublishedWebsites\ASP.NET\") -DestinationPath (Join-Path $env:PublishUrl "ASPNET.zip")
-
-    - name: Publish ☁
-      uses: actions/upload-artifact@v3.1.2
-      with:
-        name: Published Code
-        path: ${{ env.PublishUrl }}/ASPNET.zip
-
-# # ___________________________________________________________________________________________________________
-
-    - name: configure aws credentials 🔑
-      uses: aws-actions/configure-aws-credentials@v2
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-
-    - name: Copy files to S3 🔄   
-      run: |
-          aws s3 cp ${{ env.PublishUrl }}/ASPNET.zip s3://my-github-action-bucket
-
-    # - name: Generate deployment package ☸
-    #   run: |
-    #     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-    #     choco install zip -y
-    #     cd ${{ github.workspace }}
-    #     zip -r deploy.zip . -x 'deploy.zip'
-
-    # - name: Deploy to AWS Beanstalk 🚀 
-    #   run: |
-    #     aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v20230524111748-1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=ASPNET.zip
+#     # - name: Deploy to AWS Beanstalk 🚀 
+#     #   run: |
+#     #     aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label v20230524111748-1 --source-bundle S3Bucket=my-github-action-bucket,S3Key=ASPNET.zip
     
-    #     aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-1 --version-label v20230524111748-1
+#     #     aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-1 --version-label v20230524111748-1
 
-    #-----------------------------------------------------------------------------------------------------------
-    # - name: Install truffleHog
-    #   run: pip install truffleHog
+#     #-----------------------------------------------------------------------------------------------------------
+#     # - name: Install truffleHog
+#     #   run: pip install truffleHog
 
-    # - name: Scan for secrets
-    #   run: trufflehog --regex --entropy=False ${{ github.event.pull_request.head.repo.clone_url }} || true
+#     # - name: Scan for secrets
+#     #   run: trufflehog --regex --entropy=False ${{ github.event.pull_request.head.repo.clone_url }} || true
 
 
-    #-----------------------------------------------------------------------------------------------------------
+#     #-----------------------------------------------------------------------------------------------------------
 
-    # Bucket link:
-    #   s3://my-github-action-bucket/_PublishedWebsites/ASP.NET/
+#     # Bucket link:
+#     #   s3://my-github-action-bucket/_PublishedWebsites/ASP.NET/
 
-    # --version-label "v${{ github.run_number }}"
+#     # --version-label "v${{ github.run_number }}"
 
-    # - name: Create new application version in Elastic Beanstalk
-    #   run: |
-    #       aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label <version-label> --source-bundle S3Bucket=<bucket-name>,S3Key=<key-name>
+#     # - name: Create new application version in Elastic Beanstalk
+#     #   run: |
+#     #       aws elasticbeanstalk create-application-version --application-name ASPNET-Application --version-label <version-label> --source-bundle S3Bucket=<bucket-name>,S3Key=<key-name>
   
-    # - name: Update Elastic Beanstalk environment
-    #   run: |
+#     # - name: Update Elastic Beanstalk environment
+#     #   run: |
 
-    #       aws elasticbeanstalk describe-environments --environment-names ASPNETApplication-env-4
+#     #       aws elasticbeanstalk describe-environments --environment-names ASPNETApplication-env-4
 
-    #       aws elasticbeanstalk wait environment-ready --environment-names ASPNETApplication-env-4
+#     #       aws elasticbeanstalk wait environment-ready --environment-names ASPNETApplication-env-4
 
-    #       aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-4 --version-label v20230523113544-1
+#     #       aws elasticbeanstalk update-environment --environment-name ASPNETApplication-env-4 --version-label v20230523113544-1
 
 
-    # - name: Deploy to Windows Server 🚀
-    #   run: |
-    #       $securePassword = ConvertTo-SecureString -String ${{ secrets.SERVER_PASSWORD }} -AsPlainText -Force
-    #       $credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ${{ secrets.SERVER_USERNAME }}, $securePassword
-    #       $session = New-PSSession -ComputerName 44.215.156.88 -Credential $credential
-    #       Copy-Item -Path ${{ github.workspace }} -Destination C:\inetpub\wwwroot\ -Recurse -Force -ToSession $session
-    #       Remove-PSSession -Session $session
+#     # - name: Deploy to Windows Server 🚀
+#     #   run: |
+#     #       $securePassword = ConvertTo-SecureString -String ${{ secrets.SERVER_PASSWORD }} -AsPlainText -Force
+#     #       $credential = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList ${{ secrets.SERVER_USERNAME }}, $securePassword
+#     #       $session = New-PSSession -ComputerName 44.215.156.88 -Credential $credential
+#     #       Copy-Item -Path ${{ github.workspace }} -Destination C:\inetpub\wwwroot\ -Recurse -Force -ToSession $session
+#     #       Remove-PSSession -Session $session
 
-    # - name: Install SSM agent
-    #   run: |
-    #     aws ssm send-command --document-name "AWS-ConfigureAWSPowerShellModule" --instance-ids "i-0dc9a7885b126d604" --parameters "source=PSGallery,installationType=CurrentUser"
+#     # - name: Install SSM agent
+#     #   run: |
+#     #     aws ssm send-command --document-name "AWS-ConfigureAWSPowerShellModule" --instance-ids "i-0dc9a7885b126d604" --parameters "source=PSGallery,installationType=CurrentUser"
 
   
 
-    # - name: Copy files to IIS directory
-    #   run: |
+#     # - name: Copy files to IIS directory
+#     #   run: |
 
-    #       aws ssm send-command --document-name "AWS-RunPowerShellScript" --instance-ids "i-0dc9a7885b126d604" --parameters commands="Copy-Item -Path C:\inetpub\wwwroot\* -Destination C:\inetpub\wwwroot\backup; Remove-Item -Path C:\inetpub\wwwroot\* -Recurse; Copy-Item -Path ./publish/* -Destination C:\inetpub\wwwroot\"
+#     #       aws ssm send-command --document-name "AWS-RunPowerShellScript" --instance-ids "i-0dc9a7885b126d604" --parameters commands="Copy-Item -Path C:\inetpub\wwwroot\* -Destination C:\inetpub\wwwroot\backup; Remove-Item -Path C:\inetpub\wwwroot\* -Recurse; Copy-Item -Path ./publish/* -Destination C:\inetpub\wwwroot\"
 
-# ___________________________________________________________________________________________________________
-
-# jobs:
-  # deploy:
-
-    # - name: Deploy to AWS Elastic Beanstalk 🚀
-    #   # uses: einaregilsson/beanstalk-deploy@v16
-    #   uses: einaregilsson/beanstalk-deploy@v21
-    #   with:
-    #       aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-    #       aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    #       application_name: "ASP.NET Application"
-    #       # environment_name: "ASPNETApplication-env"
-    #       environment_name: "ASPNETApplication-env-1"
-    #       # version_label: "v${{ github.run_number }}"
-    #       version_label: "v190"
-
-    #       region: "us-east-1"
-    #       deployment_package: "deploy.zip"
-    #       # deployment_package: "s3://my-github-action-bucket/ASP.NET.zip"
-    #       # deployment_package: "*/ASP.NET.zip"
-
-    # - name: Deployment done ✅
-    #   run: echo "The deployment was successful!" 
-      
-# ___________________________________________________________________________________________________________
-  # create-s3-deploy:
-  #   name: Create Deploy
-  #   needs: build
-  #   runs-on: windows-latest
-  #   permissions:
-  #     contents: read
-  #     packages: write
-
- # ___________________________________________________________________________________________________________
-  #   env:
-  #       Solution_Name: ASP.NET.sln                          
-  #       #Test_Project_Path: your-test-project-path                 
-  #       Wap_Project_Directory: ASP.NET    
-  #       Csproj_Path: "ASP.NET/ASP.NET.csproj"                 
-  #       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
-  #       Publish_Directory: "${{ github.workspace }}/publish"
-  #       # Publish_Directory: "${{ github.workspace }}\""
-  
-  #       # PublishPath: "$(System.DefaultWorkingDirectory)"
-  #       App_Packages_Directory: packages
-  #       Wap_Project_Directory_Upload: ASP.NET.packages.config
-        
-  #       App_Packages_Archive: ASP.NET.zip
-  #       # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
-  #       # PublishDir: "${{ github.workspace }}/publish"
-  #       PublishDir: "${{ github.workspace }}/publish"
-  #       PublishUrl: D:\Artifacts
-        
-  # ___________________________________________________________________________________________________________
-
-  # ___________________________________________________________________________________________________________
-      # - name: configure aws credentials 🔑
-      #   uses: aws-actions/configure-aws-credentials@v2
-      #   with:
-      #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-      #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-    
-      #       # role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
-      #       # role-session-name: GitHub-Action-Role
-      #       aws-region: us-east-1
-
-      # - name: Sync files to S3 🔄
-      #   run: |
-          
-      #     aws s3 sync D:/Artifacts s3://my-github-action-bucket
-
-
-# ___________________________________________________________________________________________________________
-# create a deployment step for aws elasticbeanstalk using github actions
-
-
-
-# ___________________________________________________________________________________________________________
-
-    # - name: Download the artifacts
-    #   uses: actions/download-artifact@v2
-    #   with:
-    #       name: Published Code
-    #       path: ${{ env.Publish_Directory }}
-  
-    # - name: Publish NuGet to GitHub Packages
-    #   run: |
-    #     nuget sources add -username ${{ github.repository_owner }} -password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github -source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
-    #     nuget setapikey ${{ secrets.GITHUB_TOKEN }} -Source "github"
-    #     nuget push <NAME_OF_YOUR_PACKAGE>.nupkg -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"  
-# ___________________________________________________________________________________________________________
-
-    #  # Test downloading a single artifact
-    # - name: Download artifact 
-    #   uses: ./
-    #   with:
-    #     name: 'Artifact-A'
-    #     path: ${{ env.Publish_Directory }}.\ASP.NET.zip  
-            
-          
-    # - name: Create new branch
-    #   run: |
-    #         git checkout -b move-artifact
-    #         mkdir root_artifact
-    #         cp -R ${{ env.Publish_Directory }}/* root_artifact/
-    #         git config --global user.email "sumanprasad9766@gmail.com"
-    #         git config --global user.name "Suman prasad"
-    #         git add .
-    #         git commit -m "Move artifact to root folder"
-    #         git push origin move-artifact
-        
-    # - name: Create pull request
-    #   uses: peter-evans/create-pull-request@v3
-    #   with:
-    #         token: ${{ env.PAT_TOKEN }}
-    #         branch: move-artifact
-    #         title: "Move artifact to root folder"
-    #         body: "This pull request moves the artifact to the root folder."
-
-#  ___________________________________________________________________________________________________________
-    # # Archive the package
-    # - name: Create archive
-    #   run: Compress-Archive -Path "$env:Wap_Project_Directory_Upload\*" -DestinationPath "$env:Wap_Project_Directory_Upload\$env:App_Packages_Archive.zip" -Force
-
-
-    # # Create the release:  https://github.com/actions/create-release
-    # - name: Create release
-    #   id: create_release
-    #   uses: actions/create-release@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-    #   with:
-    #     tag_name: ${{ github.ref}}.${{matrix.ChannelName}}.${{ matrix.targetplatform }}
-    #     release_name:  ${{ github.ref }}.${{ matrix.ChannelName }}.${{ matrix.targetplatform }}
-    #     draft: false
-    #     prerelease: false
-
-    # # Upload release asset:   https://github.com/actions/upload-release-asset
-    # - name: Update release asset
-    #   id: upload-release-asset
-    #   uses: actions/upload-release-asset@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #   with:
-    #     upload_url: ${{ steps.create_release.outputs.upload_url }}  # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-    #     asset_path: ${{ env.Wap_Project_Directory }}\${{ env.App_Packages_Directory }}\${{ env.App_Packages_Archive }}
-    #     asset_name: ${{ env.App_Packages_Archive }}
-    #     asset_content_type: application/zip
-# ___________________________________________________________________________________________________________
-  # deploy:
-  #   needs: build
-  #   runs-on: ubuntu-latest
-  #   # environment: Dev
-  #   permissions:
-  #     id-token: write
-  #     contents: read
-  #   steps:
-  #   - uses: actions/checkout@v2
-  #   - uses: aws-actions/configure-aws-credentials@v1
-  #     with:
-  #       role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
-  #       role-session-name: GitHub-Action-Role
-  #       aws-region: ${{ env.AWS_REGION }}
-
-    # - name: Generate deployment package
-    #   run: |
-    #     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
-      
-    #     choco install zip -y
-
-    #     zip -r deploy.zip . -x 'D:\deployedApp\newapp'
-
-    #   #     zip -r deploy.zip . -x '*.git*'
+# # ___________________________________________________________________________________________________________
 
 # # jobs:
-#   deploy:
+#   # deploy:
 
-#     - name: Deploy to AWS Elastic Beanstalk 🚀
-#       uses: einaregilsson/beanstalk-deploy@v16
-#       with:
-#           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#           application_name: "ASP.NET Application"
-#           environment_name: "ASPNETApplication-env"
-#           version_label: "v${{ github.run_number }}"
-#           region: "us-east-1"
-#           deployment_package: "deploy.zip"
+#     # - name: Deploy to AWS Elastic Beanstalk 🚀
+#     #   # uses: einaregilsson/beanstalk-deploy@v16
+#     #   uses: einaregilsson/beanstalk-deploy@v21
+#     #   with:
+#     #       aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#     #       aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#     #       application_name: "ASP.NET Application"
+#     #       # environment_name: "ASPNETApplication-env"
+#     #       environment_name: "ASPNETApplication-env-1"
+#     #       # version_label: "v${{ github.run_number }}"
+#     #       version_label: "v190"
 
-#     - name: Deployment done ✅
-#       run: echo "The deployment was successful!" 
-# ___________________________________________________________________________________________________________
+#     #       region: "us-east-1"
+#     #       deployment_package: "deploy.zip"
+#     #       # deployment_package: "s3://my-github-action-bucket/ASP.NET.zip"
+#     #       # deployment_package: "*/ASP.NET.zip"
+
+#     # - name: Deployment done ✅
+#     #   run: echo "The deployment was successful!" 
+      
+# # ___________________________________________________________________________________________________________
+#   # create-s3-deploy:
+#   #   name: Create Deploy
+#   #   needs: build
+#   #   runs-on: windows-latest
+#   #   permissions:
+#   #     contents: read
+#   #     packages: write
+
+#  # ___________________________________________________________________________________________________________
+#   #   env:
+#   #       Solution_Name: ASP.NET.sln                          
+#   #       #Test_Project_Path: your-test-project-path                 
+#   #       Wap_Project_Directory: ASP.NET    
+#   #       Csproj_Path: "ASP.NET/ASP.NET.csproj"                 
+#   #       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
+#   #       Publish_Directory: "${{ github.workspace }}/publish"
+#   #       # Publish_Directory: "${{ github.workspace }}\""
+  
+#   #       # PublishPath: "$(System.DefaultWorkingDirectory)"
+#   #       App_Packages_Directory: packages
+#   #       Wap_Project_Directory_Upload: ASP.NET.packages.config
+        
+#   #       App_Packages_Archive: ASP.NET.zip
+#   #       # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
+#   #       # PublishDir: "${{ github.workspace }}/publish"
+#   #       PublishDir: "${{ github.workspace }}/publish"
+#   #       PublishUrl: D:\Artifacts
+        
+#   # ___________________________________________________________________________________________________________
+
+#   # ___________________________________________________________________________________________________________
+#       # - name: configure aws credentials 🔑
+#       #   uses: aws-actions/configure-aws-credentials@v2
+#       #   with:
+#       #       aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#       #       aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    
+#       #       # role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+#       #       # role-session-name: GitHub-Action-Role
+#       #       aws-region: us-east-1
+
+#       # - name: Sync files to S3 🔄
+#       #   run: |
+          
+#       #     aws s3 sync D:/Artifacts s3://my-github-action-bucket
 
 
-    # - name: Deploy to AWS EC2 🚀
-    #   uses: appleboy/ssh-action@master
-    #   with:
-    #     host: ${{ secrets.HOST }}
-    #     username: ${{ secrets.USERNAME }}
-    #     key: ${{ secrets.KEY }}
-    #     port: ${{ secrets.PORT }}
-    #     script: |
-    #       cd /home/ec2-user
-    #       ls
-    #       pwd
-    #       # unzip deploy.zip
-    #       # cd publish
-    #       # ls
-    #       # cd ASP.NET
-    #       # ls
-    #       # sudo dotnet ASP.NET.dll
-    #       # cd ..
-    #       # cd ..
-    #       # cd ..
+# # ___________________________________________________________________________________________________________
+# # create a deployment step for aws elasticbeanstalk using github actions
+
+
+
+# # ___________________________________________________________________________________________________________
+
+#     # - name: Download the artifacts
+#     #   uses: actions/download-artifact@v2
+#     #   with:
+#     #       name: Published Code
+#     #       path: ${{ env.Publish_Directory }}
+  
+#     # - name: Publish NuGet to GitHub Packages
+#     #   run: |
+#     #     nuget sources add -username ${{ github.repository_owner }} -password ${{ secrets.GITHUB_TOKEN }} --store-password-in-clear-text --name github -source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"
+#     #     nuget setapikey ${{ secrets.GITHUB_TOKEN }} -Source "github"
+#     #     nuget push <NAME_OF_YOUR_PACKAGE>.nupkg -Source "https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json"  
+# # ___________________________________________________________________________________________________________
+
+#     #  # Test downloading a single artifact
+#     # - name: Download artifact 
+#     #   uses: ./
+#     #   with:
+#     #     name: 'Artifact-A'
+#     #     path: ${{ env.Publish_Directory }}.\ASP.NET.zip  
+            
+          
+#     # - name: Create new branch
+#     #   run: |
+#     #         git checkout -b move-artifact
+#     #         mkdir root_artifact
+#     #         cp -R ${{ env.Publish_Directory }}/* root_artifact/
+#     #         git config --global user.email "sumanprasad9766@gmail.com"
+#     #         git config --global user.name "Suman prasad"
+#     #         git add .
+#     #         git commit -m "Move artifact to root folder"
+#     #         git push origin move-artifact
+        
+#     # - name: Create pull request
+#     #   uses: peter-evans/create-pull-request@v3
+#     #   with:
+#     #         token: ${{ env.PAT_TOKEN }}
+#     #         branch: move-artifact
+#     #         title: "Move artifact to root folder"
+#     #         body: "This pull request moves the artifact to the root folder."
+
+# #  ___________________________________________________________________________________________________________
+#     # # Archive the package
+#     # - name: Create archive
+#     #   run: Compress-Archive -Path "$env:Wap_Project_Directory_Upload\*" -DestinationPath "$env:Wap_Project_Directory_Upload\$env:App_Packages_Archive.zip" -Force
+
+
+#     # # Create the release:  https://github.com/actions/create-release
+#     # - name: Create release
+#     #   id: create_release
+#     #   uses: actions/create-release@v1
+#     #   env:
+#     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#     #   with:
+#     #     tag_name: ${{ github.ref}}.${{matrix.ChannelName}}.${{ matrix.targetplatform }}
+#     #     release_name:  ${{ github.ref }}.${{ matrix.ChannelName }}.${{ matrix.targetplatform }}
+#     #     draft: false
+#     #     prerelease: false
+
+#     # # Upload release asset:   https://github.com/actions/upload-release-asset
+#     # - name: Update release asset
+#     #   id: upload-release-asset
+#     #   uses: actions/upload-release-asset@v1
+#     #   env:
+#     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#     #   with:
+#     #     upload_url: ${{ steps.create_release.outputs.upload_url }}  # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
+#     #     asset_path: ${{ env.Wap_Project_Directory }}\${{ env.App_Packages_Directory }}\${{ env.App_Packages_Archive }}
+#     #     asset_name: ${{ env.App_Packages_Archive }}
+#     #     asset_content_type: application/zip
+# # ___________________________________________________________________________________________________________
+#   # deploy:
+#   #   needs: build
+#   #   runs-on: ubuntu-latest
+#   #   # environment: Dev
+#   #   permissions:
+#   #     id-token: write
+#   #     contents: read
+#   #   steps:
+#   #   - uses: actions/checkout@v2
+#   #   - uses: aws-actions/configure-aws-credentials@v1
+#   #     with:
+#   #       role-to-assume: ${{ secrets.IAMROLE_GITHUB }}
+#   #       role-session-name: GitHub-Action-Role
+#   #       aws-region: ${{ env.AWS_REGION }}
+
+#     # - name: Generate deployment package
+#     #   run: |
+#     #     Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))
+      
+#     #     choco install zip -y
+
+#     #     zip -r deploy.zip . -x 'D:\deployedApp\newapp'
+
+#     #   #     zip -r deploy.zip . -x '*.git*'
+
+# # # jobs:
+# #   deploy:
+
+# #     - name: Deploy to AWS Elastic Beanstalk 🚀
+# #       uses: einaregilsson/beanstalk-deploy@v16
+# #       with:
+# #           aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+# #           aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+# #           application_name: "ASP.NET Application"
+# #           environment_name: "ASPNETApplication-env"
+# #           version_label: "v${{ github.run_number }}"
+# #           region: "us-east-1"
+# #           deployment_package: "deploy.zip"
+
+# #     - name: Deployment done ✅
+# #       run: echo "The deployment was successful!" 
+# # ___________________________________________________________________________________________________________
+
+
+#     # - name: Deploy to AWS EC2 🚀
+#     #   uses: appleboy/ssh-action@master
+#     #   with:
+#     #     host: ${{ secrets.HOST }}
+#     #     username: ${{ secrets.USERNAME }}
+#     #     key: ${{ secrets.KEY }}
+#     #     port: ${{ secrets.PORT }}
+#     #     script: |
+#     #       cd /home/ec2-user
+#     #       ls
+#     #       pwd
+#     #       # unzip deploy.zip
+#     #       # cd publish
+#     #       # ls
+#     #       # cd ASP.NET
+#     #       # ls
+#     #       # sudo dotnet ASP.NET.dll
+#     #       # cd ..
+#     #       # cd ..
+#     #       # cd ..
 
     
 
