@@ -36,7 +36,6 @@ jobs:
       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
       Publish_Directory: "${{ github.workspace }}/publish"
       # Publish_Directory: "${{ github.workspace }}\""
-
 # ___________________________________________________________________________________________________________
       # PublishPath: "$(System.DefaultWorkingDirectory)"
       App_Packages_Directory: packages
