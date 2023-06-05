@@ -18,47 +18,47 @@ jobs:
     # runs-on: self-hosted
     # runs-on: $ {{ matrix.os }}
 
-#     strategy:
-#       matrix:
-#         configuration: [Release]
-#         # os: [windows-latest, ubuntu-latest]
-#         # os: [windows-latest]
-#         # dotnet-version: [6.0.x]
-#         # channel: [Dev]
-#         # targetPlatform: [x64]
-#         # ChannelName: [Dev]
+    strategy:
+      matrix:
+        configuration: [Release]
+        # os: [windows-latest, ubuntu-latest]
+        # os: [windows-latest]
+        # dotnet-version: [6.0.x]
+        # channel: [Dev]
+        # targetPlatform: [x64]
+        # ChannelName: [Dev]
 
-#     env:
-#       Solution_Name: ASP.NET.sln                          
-#       Test_Project_Path: "ASP.NET.Tests/ASP.NET.Tests.csproj"                 
-#       Wap_Project_Directory: ASP.NET    
-#       Csproj_Path: "ASP.NET/ASP.NET.csproj"                 
-#       # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
-#       Publish_Directory: "${{ github.workspace }}/publish"
-#       # Publish_Directory: "${{ github.workspace }}\""
-# # ___________________________________________________________________________________________________________
-#       # PublishPath: "$(System.DefaultWorkingDirectory)"
-#       App_Packages_Directory: packages
-#       Wap_Project_Directory_Upload: ASP.NET.packages.config
+    env:
+      Solution_Name: ASP.NET.sln                          
+      Test_Project_Path: "ASP.NET.Tests/ASP.NET.Tests.csproj"                 
+      Wap_Project_Directory: ASP.NET    
+      Csproj_Path: "ASP.NET/ASP.NET.csproj"                 
+      # Publish_Directory: "${{ github.workspace }}/ASP.NET/bin"
+      Publish_Directory: "${{ github.workspace }}/publish"
+      # Publish_Directory: "${{ github.workspace }}\""
+# ___________________________________________________________________________________________________________
+      # PublishPath: "$(System.DefaultWorkingDirectory)"
+      App_Packages_Directory: packages
+      Wap_Project_Directory_Upload: ASP.NET.packages.config
 
-#       App_Packages_Archive: AS-NET.zip
-#       # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
-#       # PublishDir: "${{ github.workspace }}/publish"
-#       PublishDir: "${{ github.workspace }}/publish"
-#       PublishUrl: C:\inetpub\wwwroot\
+      App_Packages_Archive: AS-NET.zip
+      # PAT_TOKEN: "${{ secrets.PAT_TOKEN }}"
+      # PublishDir: "${{ github.workspace }}/publish"
+      PublishDir: "${{ github.workspace }}/publish"
+      PublishUrl: C:\inetpub\wwwroot\
       
-#       SOLUTION_PATH: ASP.NET.sln
-# #       SONAR_HOST: 
-# #       SONAR_PROJECT_KEY: 
-#       # SONAR_PROJECT_NAME: ASP.NET
-#       # SONAR_PROJECT_VERSION: 1.2.3
-# # ___________________________________________________________________________________________________________
+      SOLUTION_PATH: ASP.NET.sln
+#       SONAR_HOST: 
+#       SONAR_PROJECT_KEY: 
+      # SONAR_PROJECT_NAME: ASP.NET
+      # SONAR_PROJECT_VERSION: 1.2.3
+# ___________________________________________________________________________________________________________
       
-#     steps:
-#     - name: Checkout 🔗
-#       uses: actions/checkout@v3
-#       with:
-#         fetch-depth: 0
+    steps:
+    - name: Checkout 🔗
+      uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
         
 # # --------------------------------------------------------------------------------------------------------------
 #     # - name: Cache dependencies
