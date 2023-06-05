@@ -10,6 +10,10 @@ jobs:
   build:
     runs-on: windows-latest
 
+    strategy:
+      matrix:
+        configuration: [ Release ]
+
     env:
       Solution_Name: ASP.NET.sln
       Test_Project_Path: "ASP.NET.Tests/ASP.NET.Tests.csproj"
