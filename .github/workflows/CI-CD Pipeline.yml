@@ -1,4 +1,4 @@
-name: GitHub-Pipeline for .NET
+name: CI-CD Pipeline for .NET Application
 
 on:
   push:
