@@ -194,8 +194,6 @@ jobs:
 
 #     # - name: Scan for secrets
 #     #   run: trufflehog --regex --entropy=False ${{ github.event.pull_request.head.repo.clone_url }} || true
-
-
 #     #-----------------------------------------------------------------------------------------------------------
 
 #     # Bucket link:
