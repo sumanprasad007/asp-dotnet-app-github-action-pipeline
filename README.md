@@ -24,3 +24,4 @@ When to Choose Elastic Beanstalk
 Elastic Beanstalk for Windows Server is a great choice if you want to simplify the deployment and management of your web applications while still having the flexibility to customize your environment. However, if you require full control over your infrastructure or have specific requirements that Elastic Beanstalk does not support, you may still opt for a standalone EC2 instance.
 
 
+
