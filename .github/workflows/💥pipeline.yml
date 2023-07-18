@@ -27,7 +27,7 @@ jobs:
       PublishUrl: C:\inetpub\wwwroot\
 
       AZURE_WEBAPP_NAME: "asp-dotnet-app"
-      AZURE_WEBAPP_PACKAGE_PATH: "${{env.PublishUrl}}/ASPNET.zip"
+    #   AZURE_WEBAPP_PACKAGE_PATH: "${{env.PublishUrl}}/ASPNET.zip"
 
       
     steps:
@@ -71,4 +71,4 @@ jobs:
       with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          package: $ {{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          package: ${{env.PublishUrl}}/ASPNET.zip
