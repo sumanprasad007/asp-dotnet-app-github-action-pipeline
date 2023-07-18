@@ -26,7 +26,7 @@ jobs:
       PublishDir: "${{ github.workspace }}/publish"
       PublishUrl: C:\inetpub\wwwroot\
 
-      AZURE_WEBAPP_NAME: "my-current-time-ser"
+      AZURE_WEBAPP_NAME: "asp-dotnet-app"
       AZURE_WEBAPP_PACKAGE_PATH: "./publish"
 
       
