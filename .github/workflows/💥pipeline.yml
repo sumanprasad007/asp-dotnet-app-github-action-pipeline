@@ -54,6 +54,15 @@ jobs:
       run: |
         msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:OutDir=$env:PublishUrl
 
+    - name: Remove unnecessary files
+      run: |
+        if (Test-Path (Join-Path $env:PublishUrl "ASP.NET_Packages")) { Remove-Item -Path (Join-Path $env:PublishUrl "ASP.NET_Packages") -Recurse -Force }
+
+    - name: Zip published files
+      run: |
+        Compress-Archive -Path (Join-Path $env:PublishUrl "\_PublishedWebsites\ASP.NET\") -DestinationPath (Join-Path $env:PublishUrl "ASPNET.zip")
+
+
     # - name: Publish
     #   run: dotnet publish ./ASP.NET.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
         
@@ -62,4 +71,4 @@ jobs:
       with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
-          package: "${{ env.PublishUrl }}"
+          package: "${{ env.PublishUrl }}/ASPNET.zip"
