@@ -1,0 +1,65 @@
+name: CI-CD Pipeline for .NET Application
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        configuration: [ Release ]
+
+    env:
+      Solution_Name: ASP.NET.sln
+      Test_Project_Path: "ASP.NET.Tests/ASP.NET.Tests.csproj"
+      Wap_Project_Directory: ASP.NET
+      Csproj_Path: "ASP.NET/ASP.NET.csproj"
+      Publish_Directory: "${{ github.workspace }}/publish"
+      App_Packages_Directory: packages
+      Wap_Project_Directory_Upload: ASP.NET.packages.config
+      App_Packages_Archive: AS-NET.zip
+      PublishDir: "${{ github.workspace }}/publish"
+      PublishUrl: C:\inetpub\wwwroot\
+
+      AZURE_WEBAPP_NAME: "my-current-time-ser"
+      AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+
+      
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2.4.2
+      with:
+        fetch-depth: 0
+
+    - name: Setup MSBuild.exe
+      uses: microsoft/setup-msbuild@v1.1
+
+    - name: Setup NuGet.exe for use with actions
+      uses: NuGet/setup-nuget@v1.2.0
+
+    - name: Restore NuGet Packages
+      run: nuget restore ASP.NET.sln
+
+    - name: Restore the application
+      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
+      env:
+        Configuration: ${{ matrix.configuration }}
+
+    - name: Build & Publish the application
+      run: |
+        msbuild $env:Csproj_Path /p:DeployOnBuild=true /p:WebPublishMethod=Package /p:PublishProfile=Default /p:OutDir=$env:PublishUrl
+
+    - name: Publish
+      run: dotnet publish ./ASP.NET.sln --configuration Release --no-build --output '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}'
+        
+    - name: Deployment
+      uses: azure/webapps-deploy@v2
+      with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.AZURE_PUBLISH_PROFILE }}
+          package: "${{ env.AZURE_WEBAPP_PACKAGE_PATH }}"
