@@ -27,7 +27,7 @@ jobs:
       PublishUrl: C:\inetpub\wwwroot\
 
       AZURE_WEBAPP_NAME: "asp-dotnet-app"
-      AZURE_WEBAPP_PACKAGE_PATH: "./publish"
+    #   AZURE_WEBAPP_PACKAGE_PATH: "./publish"
 
       
     steps:
