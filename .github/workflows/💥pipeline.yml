@@ -1,4 +1,4 @@
-name: CI-CD Pipeline for .NET Application
+name: 💥 Pipeline
 
 on:
   push:
